@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chess.com</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="main.js" defer></script>
+    </head>
+    <body>
+        <header>header hoga</header>
+
+        <main>
+            <div id="game_container">
+                <div id="chess_board">
+                    <!-- 8th rank -->
+                    <div id="button1" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/75px-Chess_rdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+
+                        <div class="textDiv">
+                            <div>8</div>
+                        </div>
+
+                        <div id="pieceName">BR</div>
+                    </div>
+                    <div id="button2" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Chess_ndt45.svg/75px-Chess_ndt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BN</div>
+                    </div>
+                    <div id="button3" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Chess_bdt45.svg/75px-Chess_bdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BB</div>
+                    </div>
+
+                    <div id="button4" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Chess_qdt45.svg/75px-Chess_qdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BQ</div>
+                    </div>
+
+                    <div id="button5" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Chess_kdt45.svg/75px-Chess_kdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BK</div>
+                    </div>
+
+                    <div id="button6" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Chess_bdt45.svg/75px-Chess_bdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BB</div>
+                    </div>
+
+                    <div id="button7" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Chess_ndt45.svg/75px-Chess_ndt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BN</div>
+                    </div>
+
+                    <div id="button8" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/75px-Chess_rdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BR</div>
+                    </div>
+
+                    <!-- 7th rank -->
+
+                    <div id="button9" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+
+                        <div class="textDiv">
+                            <div>7</div>
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <div id="button10" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <div id="button11" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <div id="button12" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <div id="button13" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <div id="button14" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <div id="button15" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <div id="button16" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">BP</div>
+                    </div>
+
+                    <!-- 6th rank -->
+                    <div id="button17" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+
+                        <div class="textDiv">
+                            <div>6</div>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <div id="button18" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <div id="button19" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <div id="button20" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <div id="button21" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <div id="button22" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <div id="button23" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <div id="button24" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <!-- 5th rank -->
+                    <div id="button25" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div class="textDiv">
+                            <div>5</div>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button26" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button27" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button28" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button29" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button30" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button31" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button32" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <!-- 4th rank -->
+                    <div id="button33" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div class="textDiv">
+                            <div>4</div>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button34" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button35" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button36" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button37" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button38" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button39" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button40" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <!-- 3rd rank -->
+                    <div id="button41" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div class="textDiv">
+                            <div>3</div>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button42" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button43" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button44" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button45" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button46" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button47" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+                    <div id="button48" class="gameButton">
+                        <div id="imageDiv">
+                            <img src="" alt="" class="pieceImage"/>
+                        </div>
+                        <div id="pieceName"></div>
+                    </div>
+
+                    <!-- 2nd rank -->
+                    <div id="button49" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+
+                        <div class="textDiv">
+                            <div>2</div>
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <div id="button50" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <div id="button51" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <div id="button52" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <div id="button53" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <div id="button54" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <div id="button55" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <div id="button56" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div id="pieceName">WP</div>
+                    </div>
+
+                    <!-- 1st rank -->
+                    <div id="button57" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Chess_rlt45.svg/75px-Chess_rlt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        
+                        <div class="textDiv">
+                            <div>1 A</div>
+                        </div>
+                        <div id="pieceName">WR</div>
+                    </div>
+                    <div id="button58" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chess_nlt45.svg/75px-Chess_nlt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div class="textDiv">
+                            <div>B</div>
+                        </div>
+                        <div id="pieceName">WN</div>
+                    </div>
+
+                    <div id="button59" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chess_blt45.svg/75px-Chess_blt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div class="textDiv">
+                            <div>C</div>
+                        </div>
+                        <div id="pieceName">WB</div>
+                    </div>
+
+                    <div id="button60" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Chess_qlt45.svg/75px-Chess_qlt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div class="textDiv">
+                            <div>D</div>
+                        </div>
+                        <div id="pieceName">WQ</div>
+                    </div>
+
+                    <div id="button61" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Chess_klt45.svg/75px-Chess_klt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div class="textDiv">
+                            <div>E</div>
+                        </div>
+                        <div id="pieceName">WK</div>
+                    </div>
+
+                    <div id="button62" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chess_blt45.svg/75px-Chess_blt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div class="textDiv">
+                            <div>F</div>
+                        </div>
+                        <div id="pieceName">WB</div>
+                    </div>
+
+                    <div id="button63" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chess_nlt45.svg/75px-Chess_nlt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div class="textDiv">
+                            <div>G</div>
+                        </div>
+                        <div id="pieceName">WN</div>
+                    </div>
+
+                    <div id="button64" class="gameButton">
+                        <div id="imageDiv">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Chess_rlt45.svg/75px-Chess_rlt45.svg.png"
+                                alt="" class="pieceImage"
+                            />
+                        </div>
+                        <div class="textDiv">
+                            <div>H</div>
+                        </div>
+                        <div id="pieceName">WR</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>links honge ismei</footer>
+    </body>
+</html>
