@@ -18,7 +18,7 @@ html,body{
 #game_container{
     background-color: red;
     color: black;
-    height: 100%;
+    padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,4 +48,8 @@ html,body{
 
 #pieceName{
     /* display: none; */
+}
+
+#imageDiv{
+    height: 5rem;
 }
