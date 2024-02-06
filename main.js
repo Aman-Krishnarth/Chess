@@ -9,7 +9,9 @@ let pieceImagesDictionary = {
     "WP": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png",
     'BP': "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/75px-Chess_pdt45.svg.png",
     "WN":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chess_nlt45.svg/75px-Chess_nlt45.svg.png",
-    "BN":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Chess_ndt45.svg/75px-Chess_ndt45.svg.png"
+    "BN":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Chess_ndt45.svg/75px-Chess_ndt45.svg.png",
+    "WB":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chess_blt45.svg/75px-Chess_blt45.svg.png",
+    "BB":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Chess_bdt45.svg/75px-Chess_bdt45.svg.png"
 };
 
 //coloring board
@@ -54,7 +56,6 @@ for (let i = 0; i < 64; i++) {
 }
 
 //adding event Listeners
-
 let buttonClicked = [];
 let turn = true;
 
@@ -74,6 +75,9 @@ function cutPiece(cutPieceRow,cutPieceCol,index,text){
 }
 
 function knightMovement(pieceColor,row,col){
+
+    console.log(`in knightMovement pieceColor = ${pieceColor}`)
+    
     {
         console.log("")
         console.log("in block 1")
@@ -81,19 +85,17 @@ function knightMovement(pieceColor,row,col){
         console.log(`tempRow = ${tempRow}`);
         {
             let tempCol = col -2;
-            console.log(`tempCol = ${tempCol}`)
+            console.log(`tempCol = ${tempCol}`);
+
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
 
-                console.log("idhar pe hu");
-                
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
-                    
-                    console.log("ab idhar pe hu");
-
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }
-                
+    
              }
         }
         {
@@ -101,15 +103,16 @@ function knightMovement(pieceColor,row,col){
             console.log(`tempCol = ${tempCol}`)
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
 
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
-
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }
-                
              }
         }
     }
+    
     {
         console.log("")
         console.log("in block 2")
@@ -120,9 +123,10 @@ function knightMovement(pieceColor,row,col){
             console.log(`tempCol = ${tempCol}`)
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
 
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
-
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }
                 
@@ -133,15 +137,17 @@ function knightMovement(pieceColor,row,col){
             console.log(`tempCol = ${tempCol}`)
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
 
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
-
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }
                 
              }
         }
     }
+    
     {
         console.log("")
         console.log("in block 3")
@@ -152,9 +158,10 @@ function knightMovement(pieceColor,row,col){
             console.log(`tempCol = ${tempCol}`)
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
 
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
-
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }
                 
@@ -165,15 +172,17 @@ function knightMovement(pieceColor,row,col){
             console.log(`tempCol = ${tempCol}`)
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
 
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
-
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }
                 
              }
         }
     }
+    
     {
         console.log("")
         console.log("in block 4")
@@ -183,8 +192,11 @@ function knightMovement(pieceColor,row,col){
             let tempCol = col -1;
             console.log(`tempCol = ${tempCol}`)
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
+                
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }   
              }
@@ -193,18 +205,126 @@ function knightMovement(pieceColor,row,col){
             let tempCol = col +1;
             console.log(`tempCol = ${tempCol}`)
             if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
-              
 
-                if(gameSquaresArray[tempRow][tempCol].textContent===""||
-                gameSquaresArray[tempRow][tempCol].textContent[0]!==pieceColor){
-                    
-
+                if(gameSquaresArray[tempRow][tempCol].textContent===""){
+                    gameSquaresArray[tempRow][tempCol].style.background="blue";
+                } 
+                else if(pieceName[tempRow*8 + tempCol].textContent[0]!==pieceColor){
                     gameSquaresArray[tempRow][tempCol].style.background="blue";
                 }
                 
              }
         }
     }
+}
+
+function movementMarker(upwardRow,downwardRow,rightDiagonal,leftDiagonal,pieceColor){
+    
+    let moreRightCol = false;
+    let moreLeftCol = false;
+    console.log('')
+    console.log(`function call upwardRow = ${upwardRow} downwardRow = ${downwardRow} rightDiagonal = ${rightDiagonal} leftDiagonal = ${leftDiagonal}`)
+
+    if(upwardRow< 0 && downwardRow > 7 && rightDiagonal >7 && leftDiagonal < 0){
+        return;
+    }
+    else{
+        if(upwardRow>-1){
+            if(rightDiagonal<8 ){
+
+                console.log(`first if ke first if mein`)
+                console.log(`row = ${upwardRow} col = ${rightDiagonal}`)
+
+                if(pieceName[upwardRow*8 + rightDiagonal].textContent===""){
+                    gameSquaresArray[upwardRow][rightDiagonal].style.background="blue";
+                    moreRightCol = true;
+                } 
+                else if(pieceName[upwardRow*8 + rightDiagonal].textContent[0]!==pieceColor){
+                    gameSquaresArray[upwardRow][rightDiagonal].style.background="blue";
+                    // moreRightCol = true;
+                }
+
+            }
+            
+            if(leftDiagonal>-1){
+
+                console.log(`first if ke second if mein`)
+                console.log(`row = ${upwardRow} col = ${leftDiagonal}`)
+
+                if(pieceName[upwardRow*8 + leftDiagonal].textContent===""){
+                    gameSquaresArray[upwardRow][leftDiagonal].style.background="blue";
+                    moreLeftCol = true;
+                } 
+                else if(pieceName[upwardRow*8 + leftDiagonal].textContent[0]!==pieceColor){
+                    gameSquaresArray[upwardRow][leftDiagonal].style.background="blue";
+                    // moreLeftCol = true;
+                }
+
+            }
+        }
+        console.log("")
+
+        if(downwardRow<8){
+            if(rightDiagonal<8){
+
+                console.log(`second if ke first if mein`)
+                console.log(`row = ${downwardRow} col = ${rightDiagonal}`)
+
+                if(pieceName[downwardRow*8 + rightDiagonal].textContent===""){
+                    gameSquaresArray[downwardRow][rightDiagonal].style.background="blue";
+                    moreRightCol = true;
+                } 
+                else if(pieceName[downwardRow*8 + rightDiagonal].textContent[0]!==pieceColor){
+                    gameSquaresArray[downwardRow][rightDiagonal].style.background="blue";
+                    // moreRightCol = true;
+                }
+
+            }
+            
+            if(leftDiagonal>-1){
+
+                console.log(`second if ke second if mein`)
+                console.log(`row = ${downwardRow} col = ${leftDiagonal}`)
+
+                if(pieceName[downwardRow*8 + leftDiagonal].textContent===""){
+                    gameSquaresArray[downwardRow][leftDiagonal].style.background="blue";
+                    moreLeftCol = true;
+                } 
+                else if(pieceName[downwardRow*8 + leftDiagonal].textContent[0]!==pieceColor){
+                    gameSquaresArray[downwardRow][leftDiagonal].style.background="blue";
+                    // moreLeftCol = true;
+                }
+
+            }
+        }
+
+        if(moreRightCol && moreLeftCol){
+            movementMarker(upwardRow-1,downwardRow+1,rightDiagonal+1,leftDiagonal-1,pieceColor);
+        }
+        else if(moreRightCol){
+            movementMarker(upwardRow-1,downwardRow+1,rightDiagonal+1,-1,pieceColor);
+        }
+        else if(moreLeftCol){
+            
+            movementMarker(upwardRow-1,downwardRow+1,8,leftDiagonal-1,pieceColor);
+
+        }
+        else{
+
+            movementMarker(-1,8,8,-1,pieceColor);
+
+        }
+    }
+}
+
+function bishopMovement(pieceColor,row,col){
+
+    console.log(`pieceColor = ${pieceColor} row = ${row} col = ${col}`)
+
+    console.log(`type of row = ${typeof row } col = ${typeof col}`)
+    
+    movementMarker(+row-1,+row+1,+col+1,+col-1,pieceColor);
+
 }
 
 gameSquares.forEach((value, index) => {
@@ -216,10 +336,23 @@ gameSquares.forEach((value, index) => {
             buttonClicked.push([pieceName[index].textContent, row, column]);
             console.log(buttonClicked);
             console.log(`index clicked = ${index}`);
+
             if(buttonClicked[0][0][1]==="N"){
+
                 knightMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+
             }
-        } else {
+
+            else if(buttonClicked[0][0][1]==="B"){
+
+                bishopMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+
+            }
+
+
+        } 
+        
+        else {
             console.log(`button clicked = ${buttonClicked}`);
 
             //Black Pawn
@@ -310,6 +443,9 @@ gameSquares.forEach((value, index) => {
                     cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WN");
                     colorBoard();
                 }
+                else{
+                    colorBoard();
+                }
 
 
             }
@@ -321,7 +457,40 @@ gameSquares.forEach((value, index) => {
                     cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BN");
                     colorBoard();
                 }
+                else{
+                    colorBoard();
+                }
 
+            }
+
+            // white bishop 
+            else if(buttonClicked[0][0] === "WB"){
+                console.log(`white bishop aaya hai`)
+
+                if(gameSquares[index].style.background==="blue"){
+                    console.log("daal do piece")
+                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WB");
+                    colorBoard();
+                }
+                else{
+                    colorBoard();
+                }
+            }
+
+
+            // black bishop
+            else if(buttonClicked[0][0] === "BB"){
+
+                console.log("black bishop aaya hai")
+
+                if(gameSquares[index].style.background==="blue"){
+                    console.log("daal do piece")
+                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BB");
+                    colorBoard();
+                }
+                else{
+                    colorBoard();
+                }
             }
 
             buttonClicked = [];
