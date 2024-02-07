@@ -15,7 +15,6 @@ let pieceImagesDictionary = {
 };
 
 //coloring board
-
 document.addEventListener('DOMContentLoaded',colorBoard)
 function colorBoard(){
     let startColorGreen = true;
@@ -327,27 +326,166 @@ function bishopMovement(pieceColor,row,col){
 
 }
 
+function pawnMovement(pieceColor,row,col){
+    
+    console.log("in pawnMovement");
+    console.log(`pieceColor = ${pieceColor} row = ${row} col = ${col}`)
+
+    if(pieceColor==="W"){
+
+        if(row===6){
+            //next square
+            if(pieceName[(row-1)*8 + col].textContent===""){
+
+                gameSquaresArray[row-1][col].style.background = "blue";
+
+            }
+            //next to next square
+            if(pieceName[(row-2)*8 + col].textContent===""){
+
+                gameSquaresArray[row-2][col].style.background = "blue";
+
+            }
+            //right diagonal cut
+            if(col+1<8){
+                if(pieceName[(row-1)*8 + col+1].textContent[0]!==pieceColor && pieceName[(row-1)*8 + col+1].textContent!==""){
+    
+                    gameSquaresArray[row-1][col+1].style.background = "blue";
+    
+                }
+            }
+            // left diagonal cut
+            if(col-1>-1){
+                if(pieceName[(row-1)*8 + col-1].textContent[0]!==pieceColor && pieceName[(row-1)*8 + col-1].textContent!==""){
+    
+                    gameSquaresArray[row-1][col-1].style.background = "blue";
+    
+                }
+            }
+
+        }
+
+        else{
+            //one square checker
+            if(pieceName[(row-1)*8 + col].textContent===""){
+
+                gameSquaresArray[row-1][col].style.background = "blue";
+
+            }
+
+            //right diagonal cut
+            if(pieceName[(row-1)*8 + col+1].textContent!==pieceColor && pieceName[(row-1)*8 + col +1].textContent!==""){
+
+                gameSquaresArray[row-1][col+1].style.background = "blue";
+
+            }
+
+            //left diagonal cut
+            if(pieceName[(row-1)*8 + col-1].textContent!==pieceColor && pieceName[(row-1)*8 + col -1].textContent!==""){
+
+                gameSquaresArray[row-1][col-1].style.background = "blue";
+
+            }
+
+        }
+
+    }
+
+    else{
+
+        if(row===1){
+            //next square
+            if(pieceName[(row+1)*8 + col].textContent===""){
+
+                gameSquaresArray[row+1][col].style.background = "blue";
+
+            }
+            //next to next square
+            if(pieceName[(row+2)*8 + col].textContent===""){
+
+                gameSquaresArray[row+2][col].style.background = "blue";
+
+            }
+            //right diagonal cut
+            if(col+1<8){
+                if(pieceName[(row+1)*8 + col+1].textContent[0]!==pieceColor && pieceName[(row+1)*8 + col+1].textContent!==""){
+    
+                    gameSquaresArray[row+1][col+1].style.background = "blue";
+    
+                }
+            }
+            // left diagonal cut
+            if(col-1>-1){
+                if(pieceName[(row+1)*8 + col-1].textContent[0]!==pieceColor && pieceName[(row+1)*8 + col-1].textContent!==""){
+    
+                    gameSquaresArray[row+1][col-1].style.background = "blue";
+    
+                }
+            }
+
+        }
+
+        else{
+            //one square checker
+            if(pieceName[(row+1)*8 + col].textContent===""){
+
+                gameSquaresArray[row+1][col].style.background = "blue";
+
+            }
+
+            //right diagonal cut
+            if(pieceName[(row+1)*8 + col+1].textContent!==pieceColor && pieceName[(row+1)*8 + col +1].textContent!==""){
+
+                gameSquaresArray[row+1][col+1].style.background = "blue";
+
+            }
+
+            //left diagonal cut
+            if(pieceName[(row+1)*8 + col-1].textContent!==pieceColor && pieceName[(row+1)*8 + col -1].textContent!==""){
+
+                gameSquaresArray[row+1][col-1].style.background = "blue";
+
+            }
+
+        }
+
+    }
+
+}
+
 gameSquares.forEach((value, index) => {
     gameSquares[index].addEventListener("click", () => {
         let column = index % 8;
         let row = Math.floor(index / 8);
-
-        if (buttonClicked.length < 1) {
+        if (buttonClicked.length < 1 && pieceName[index].textContent!=="") {
             buttonClicked.push([pieceName[index].textContent, row, column]);
             console.log(buttonClicked);
             console.log(`index clicked = ${index}`);
 
+            // knight
             if(buttonClicked[0][0][1]==="N"){
 
                 knightMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
 
             }
 
+            //bishops
             else if(buttonClicked[0][0][1]==="B"){
 
                 bishopMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+                
+            }
+
+            //pawn
+            else if(buttonClicked[0][0][1]==="P"){
+                
+                console.log("pawn aaya hai");
+
+                pawnMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
 
             }
+
+            //casteling
 
 
         } 
@@ -360,37 +498,13 @@ gameSquares.forEach((value, index) => {
                 console.log("black pawn aaya hai");
                 if (!turn) {
                     //double movement checker
-                    if (buttonClicked[0][1] === 1) {
-                        if ((row === buttonClicked[0][1] + 1 || row === buttonClicked[0][1] + 2) && buttonClicked[0][2] === column) {
-                            if(pieceName[index].textContent[0] !== 'W'){
-
-                            cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'BP')
-
-                            }
-                        }
-                        else if(row === buttonClicked[0][1] + 1 && 
-                            (buttonClicked[0][2] === column+1||buttonClicked[0][2] === column-1)){
-    
-                                if(pieceName[index].textContent[0] === 'W'){
-                                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'BP')
-                                }
-                        }
-                    } 
-                    //normal pawn checker
-                    else if (row === buttonClicked[0][1] + 1 && buttonClicked[0][2] === column
-                    ) {
-                        if(pieceName[index].textContent[0] !== 'W'){
-                            cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'BP')
-                        }
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BP");
+                        colorBoard();
                     }
-                    else if(row === buttonClicked[0][1] + 1 && 
-                        (buttonClicked[0][2] === column+1||buttonClicked[0][2] === column-1)){
-
-                            if(pieceName[index].textContent[0] === 'W'){
-
-                                cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'BP')
-
-                            }
+                    else{
+                        colorBoard();
                     }
                 }
             }
@@ -399,39 +513,13 @@ gameSquares.forEach((value, index) => {
             else if (buttonClicked[0][0] === "WP") {
                 if (turn) {
                     console.log("white pawn hai bitch");
-                    if (buttonClicked[0][1] === 6) {
-                        if (
-                            (row === buttonClicked[0][1] - 1 ||
-                                row === buttonClicked[0][1] - 2) &&
-                            buttonClicked[0][2] === column
-                        ) {
-                            if(pieceName[index].textContent != 'BP'){
-
-                                cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'WP')
-                            }
-                            else if(row === buttonClicked[0][1] - 1 && 
-                                (buttonClicked[0][2] === column+1||buttonClicked[0][2] === column-1)){
-        
-                                    if(pieceName[index].textContent[0] === 'B'){
-                                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'WP')
-                                    }
-        
-                            }
-                        }
-                    } else if (
-                        row === buttonClicked[0][1] - 1 &&
-                        buttonClicked[0][2] === column
-                    ) {
-                        if(pieceName[index].textContent[0] !== 'B'){
-                            cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'WP')
-                        }
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WP");
+                        colorBoard();
                     }
-                    else if(row === buttonClicked[0][1] - 1 && 
-                        (buttonClicked[0][2] === column+1||buttonClicked[0][2] === column-1)){
-
-                            if(pieceName[index].textContent[0] === 'B'){
-                                cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,'WP')
-                            }
+                    else{
+                        colorBoard();
                     }
                 }
             }
