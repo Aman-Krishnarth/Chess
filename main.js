@@ -11,7 +11,11 @@ let pieceImagesDictionary = {
     "WN":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chess_nlt45.svg/75px-Chess_nlt45.svg.png",
     "BN":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Chess_ndt45.svg/75px-Chess_ndt45.svg.png",
     "WB":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chess_blt45.svg/75px-Chess_blt45.svg.png",
-    "BB":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Chess_bdt45.svg/75px-Chess_bdt45.svg.png"
+    "BB":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Chess_bdt45.svg/75px-Chess_bdt45.svg.png",
+    "WK":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Chess_klt45.svg/75px-Chess_klt45.svg.png",
+    "BK":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Chess_kdt45.svg/75px-Chess_kdt45.svg.png",
+    "WR":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Chess_rlt45.svg/75px-Chess_rlt45.svg.png",
+    "BR":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/75px-Chess_rdt45.svg.png"
 };
 
 //coloring board
@@ -70,6 +74,29 @@ function cutPiece(cutPieceRow,cutPieceCol,index,text){
     
     pieceName[index].textContent = text;
 
+
+}
+
+function castle(clickedRow,clickedCol,kingRow,kingCol,pieceColor){
+
+    if(clickedCol>kingCol){
+
+        // right waale rook ko hatao
+        pieceImageArray[clickedRow][7].setAttribute("src","");
+        pieceName[clickedRow*8 + 7].textContent = "";
+
+        //king ko clickedCol pe leke jao
+        pieceImageArray[clickedRow][clickedCol].setAttribute("src",pieceImagesDictionary[`${pieceColor}K`]);
+        pieceName[clickedRow*8 + clickedCol].textContent = `${pieceColor}K` ;
+
+        pieceImageArray[kingRow][kingCol].setAttribute("src","");
+        pieceName[kingRow*8 + kingCol].textContent = `` ;
+
+        //rook ko clickedCol-1 pe leke aao
+        pieceImageArray[clickedRow][clickedCol-1].setAttribute("src",pieceImagesDictionary[`${pieceColor}R`]);
+        pieceName[clickedRow*8 + clickedCol-1].textContent = `${pieceColor}R` ;
+
+    }
 
 }
 
@@ -227,6 +254,7 @@ function movementMarker(upwardRow,downwardRow,rightDiagonal,leftDiagonal,pieceCo
     if(upwardRow< 0 && downwardRow > 7 && rightDiagonal >7 && leftDiagonal < 0){
         return;
     }
+
     else{
         if(upwardRow>-1){
             if(rightDiagonal<8 ){
@@ -453,6 +481,49 @@ function pawnMovement(pieceColor,row,col){
 
 }
 
+function kingMovement(pieceColor,row,col){
+
+    console.log("in kings movement");
+    console.log(`pieceColor = ${pieceColor} row = ${row} col = ${col}`);
+
+    if(pieceName[row*8 + col+1].textContent===""){
+
+        gameSquaresArray[row][col+1].style.background = "blue";
+
+    }
+
+    if(pieceName[row*8 + col+2].textContent===""){
+
+        gameSquaresArray[row][col+2].style.background = "blue";
+
+    }
+
+    if(pieceName[row*8 + col-1].textContent===""){
+
+        gameSquaresArray[row][col-1].style.background = "blue";
+
+    }
+
+    if(row-1>-1){
+
+        if(pieceName[(row-1)*8 + col].textContent===""){
+    
+            gameSquaresArray[row-1][col].style.background = "blue";
+    
+        }
+    }
+
+    if(row+1<8){
+
+        if(pieceName[(row+1)*8 + col].textContent===""){
+    
+            gameSquaresArray[row+1][col].style.background = "blue";
+    
+        }
+    }
+
+}
+
 gameSquares.forEach((value, index) => {
     gameSquares[index].addEventListener("click", () => {
         let column = index % 8;
@@ -485,19 +556,25 @@ gameSquares.forEach((value, index) => {
 
             }
 
-            //casteling
+            // king movement
+            else if(buttonClicked[0][0][1]==="K"){
 
+                console.log("king aaya hai full power");
+
+                kingMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+
+            }
 
         } 
         
         else {
+            console.log("")
             console.log(`button clicked = ${buttonClicked}`);
 
             //Black Pawn
             if (buttonClicked[0][0] === "BP") {
                 console.log("black pawn aaya hai");
                 if (!turn) {
-                    //double movement checker
                     if(gameSquares[index].style.background==="blue"){
                         console.log("daal do piece")
                         cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BP");
@@ -512,7 +589,6 @@ gameSquares.forEach((value, index) => {
             //white pawn
             else if (buttonClicked[0][0] === "WP") {
                 if (turn) {
-                    console.log("white pawn hai bitch");
                     if(gameSquares[index].style.background==="blue"){
                         console.log("daal do piece")
                         cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WP");
@@ -534,8 +610,6 @@ gameSquares.forEach((value, index) => {
                 else{
                     colorBoard();
                 }
-
-
             }
 
             //black knight
@@ -548,13 +622,10 @@ gameSquares.forEach((value, index) => {
                 else{
                     colorBoard();
                 }
-
             }
 
             // white bishop 
             else if(buttonClicked[0][0] === "WB"){
-                console.log(`white bishop aaya hai`)
-
                 if(gameSquares[index].style.background==="blue"){
                     console.log("daal do piece")
                     cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WB");
@@ -568,15 +639,48 @@ gameSquares.forEach((value, index) => {
 
             // black bishop
             else if(buttonClicked[0][0] === "BB"){
-
-                console.log("black bishop aaya hai")
-
                 if(gameSquares[index].style.background==="blue"){
                     console.log("daal do piece")
                     cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BB");
                     colorBoard();
                 }
                 else{
+                    colorBoard();
+                }
+            }
+
+            //white king
+            else if(buttonClicked[0][0]==="WK"){
+                console.log(`index = ${index}`);
+                let kingRow = buttonClicked[0][1];
+                let kingColumn = buttonClicked[0][2];
+                let clickedColumn = index % 8;
+                let clickedRow = Math.floor(index / 8);
+
+                console.log(`kingCol = ${kingColumn} kingRow = ${kingRow}`);
+                console.log(`clickedCol = ${clickedColumn} clickedRow = ${clickedRow}`);
+
+                if(kingColumn<clickedColumn){
+
+                    castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+                    colorBoard();
+                }
+            }
+
+            //black king
+            else if(buttonClicked[0][0]==="BK"){
+                console.log(`index = ${index}`);
+                let kingRow = buttonClicked[0][1];
+                let kingColumn = buttonClicked[0][2];
+                let clickedColumn = index % 8;
+                let clickedRow = Math.floor(index / 8);
+
+                console.log(`kingCol = ${kingColumn} kingRow = ${kingRow}`);
+                console.log(`clickedCol = ${clickedColumn} clickedRow = ${clickedRow}`);
+
+                if(kingColumn<clickedColumn){
+
+                    castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
                     colorBoard();
                 }
             }
