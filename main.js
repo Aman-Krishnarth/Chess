@@ -1,3 +1,7 @@
+// rook ki movement banani hai
+// queen ki movement banani hai
+// check capture hai -> jo bhi square hoga uski row and column check karenge then diagonals then knight ke liye
+
 let gameSquares = document.querySelectorAll(".gameButton");
 let gameSquaresArray = [];
 let pieceName = document.querySelectorAll("#pieceName");
@@ -15,7 +19,9 @@ let pieceImagesDictionary = {
     "WK":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Chess_klt45.svg/75px-Chess_klt45.svg.png",
     "BK":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Chess_kdt45.svg/75px-Chess_kdt45.svg.png",
     "WR":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Chess_rlt45.svg/75px-Chess_rlt45.svg.png",
-    "BR":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/75px-Chess_rdt45.svg.png"
+    "BR":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/75px-Chess_rdt45.svg.png",
+    "WQ":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Chess_qlt45.svg/75px-Chess_qlt45.svg.png",
+    "BQ":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Chess_qdt45.svg/75px-Chess_qdt45.svg.png"
 };
 
 //coloring board
@@ -244,113 +250,10 @@ function knightMovement(pieceColor,row,col){
     }
 }
 
-function movementMarker(upwardRow,downwardRow,rightDiagonal,leftDiagonal,pieceColor){
-    
-    let moreRightCol = false;
-    let moreLeftCol = false;
-    console.log('')
-    console.log(`function call upwardRow = ${upwardRow} downwardRow = ${downwardRow} rightDiagonal = ${rightDiagonal} leftDiagonal = ${leftDiagonal}`)
-
-    if(upwardRow< 0 && downwardRow > 7 && rightDiagonal >7 && leftDiagonal < 0){
-        return;
-    }
-
-    else{
-        if(upwardRow>-1){
-            if(rightDiagonal<8 ){
-
-                console.log(`first if ke first if mein`)
-                console.log(`row = ${upwardRow} col = ${rightDiagonal}`)
-
-                if(pieceName[upwardRow*8 + rightDiagonal].textContent===""){
-                    gameSquaresArray[upwardRow][rightDiagonal].style.background="blue";
-                    moreRightCol = true;
-                } 
-                else if(pieceName[upwardRow*8 + rightDiagonal].textContent[0]!==pieceColor){
-                    gameSquaresArray[upwardRow][rightDiagonal].style.background="blue";
-                    // moreRightCol = true;
-                }
-
-            }
-            
-            if(leftDiagonal>-1){
-
-                console.log(`first if ke second if mein`)
-                console.log(`row = ${upwardRow} col = ${leftDiagonal}`)
-
-                if(pieceName[upwardRow*8 + leftDiagonal].textContent===""){
-                    gameSquaresArray[upwardRow][leftDiagonal].style.background="blue";
-                    moreLeftCol = true;
-                } 
-                else if(pieceName[upwardRow*8 + leftDiagonal].textContent[0]!==pieceColor){
-                    gameSquaresArray[upwardRow][leftDiagonal].style.background="blue";
-                    // moreLeftCol = true;
-                }
-
-            }
-        }
-        console.log("")
-
-        if(downwardRow<8){
-            if(rightDiagonal<8){
-
-                console.log(`second if ke first if mein`)
-                console.log(`row = ${downwardRow} col = ${rightDiagonal}`)
-
-                if(pieceName[downwardRow*8 + rightDiagonal].textContent===""){
-                    gameSquaresArray[downwardRow][rightDiagonal].style.background="blue";
-                    moreRightCol = true;
-                } 
-                else if(pieceName[downwardRow*8 + rightDiagonal].textContent[0]!==pieceColor){
-                    gameSquaresArray[downwardRow][rightDiagonal].style.background="blue";
-                    // moreRightCol = true;
-                }
-
-            }
-            
-            if(leftDiagonal>-1){
-
-                console.log(`second if ke second if mein`)
-                console.log(`row = ${downwardRow} col = ${leftDiagonal}`)
-
-                if(pieceName[downwardRow*8 + leftDiagonal].textContent===""){
-                    gameSquaresArray[downwardRow][leftDiagonal].style.background="blue";
-                    moreLeftCol = true;
-                } 
-                else if(pieceName[downwardRow*8 + leftDiagonal].textContent[0]!==pieceColor){
-                    gameSquaresArray[downwardRow][leftDiagonal].style.background="blue";
-                    // moreLeftCol = true;
-                }
-
-            }
-        }
-
-        if(moreRightCol && moreLeftCol){
-            movementMarker(upwardRow-1,downwardRow+1,rightDiagonal+1,leftDiagonal-1,pieceColor);
-        }
-        else if(moreRightCol){
-            movementMarker(upwardRow-1,downwardRow+1,rightDiagonal+1,-1,pieceColor);
-        }
-        else if(moreLeftCol){
-            
-            movementMarker(upwardRow-1,downwardRow+1,8,leftDiagonal-1,pieceColor);
-
-        }
-        else{
-
-            movementMarker(-1,8,8,-1,pieceColor);
-
-        }
-    }
-}
-
 function bishopMovement(pieceColor,row,col){
 
+    console.log("in bishop movement")
     console.log(`pieceColor = ${pieceColor} row = ${row} col = ${col}`)
-
-    console.log(`type of row = ${typeof row } col = ${typeof col}`)
-    
-    movementMarker(+row-1,+row+1,+col+1,+col-1,pieceColor);
 
 }
 
@@ -486,22 +389,96 @@ function kingMovement(pieceColor,row,col){
     console.log("in kings movement");
     console.log(`pieceColor = ${pieceColor} row = ${row} col = ${col}`);
 
-    if(pieceName[row*8 + col+1].textContent===""){
+    if(col+1<8){
+        if(pieceName[row*8 + col+1].textContent===""  ){
+    
+            gameSquaresArray[row][col+1].style.background = "blue";
+    
+        }
+        else if(pieceName[row*8 + col+1].textContent[0]!==pieceColor){
+            gameSquaresArray[row][col+1].style.background = "blue";
+        }
 
-        gameSquaresArray[row][col+1].style.background = "blue";
+        if(row-1>-1){
+
+            console.log(`row -1 = ${row-1} col+1 = ${col+1}`)
+            if(pieceName[(row-1)*8 + col+1].textContent==="" ){
+    
+                gameSquaresArray[row-1][col+1].style.background = "blue";
+        
+            }
+            else if(pieceName[(row-1)*8 + col+1].textContent[0]!==pieceColor){
+                gameSquaresArray[row-1][col+1].style.background = "blue";
+            }
+
+        }
+
+        if(row+1<8){
+            if(pieceName[(row+1)*8 + col+1].textContent===""){
+    
+                gameSquaresArray[row+1][col+1].style.background = "blue";
+        
+            }
+
+            else if(pieceName[(row+1)*8 + col+1].textContent[0]!==pieceColor){
+            gameSquaresArray[row+1][col+1].style.background = "blue";
+        }
+
+
+        }
+    }
+
+    if(col+2<8){
+        if(pieceName[row*8 + col+2].textContent===""){
+    
+            gameSquaresArray[row][col+2].style.background = "blue";
+    
+        }
+
+        else if(pieceName[row*8 + col+2].textContent[0]!==pieceColor){
+            gameSquaresArray[row][col+2].style.background = "blue";
+        }
 
     }
 
-    if(pieceName[row*8 + col+2].textContent===""){
+    if(col-1>-1){
+        if(pieceName[row*8 + col-1].textContent==="" ){
+    
+            gameSquaresArray[row][col-1].style.background = "blue";
+    
+        }
+        else if(pieceName[row*8 + col-1].textContent[0]!==pieceColor){
+            gameSquaresArray[row][col-1].style.background = "blue";
+        }
 
-        gameSquaresArray[row][col+2].style.background = "blue";
+        if(row-1>-1){
 
-    }
+            if(pieceName[(row-1)*8 + col-1].textContent===""){
+    
+                gameSquaresArray[row-1][col-1].style.background = "blue";
+        
+            }
 
-    if(pieceName[row*8 + col-1].textContent===""){
+            else if(pieceName[(row-1)*8 + col-1].textContent[0]!==pieceColor){
+            gameSquaresArray[row-1][col-1].style.background = "blue";
+        }
 
-        gameSquaresArray[row][col-1].style.background = "blue";
 
+        }
+
+        if(row+1<8){
+            if(pieceName[(row+1)*8 + col-1].textContent===""){
+    
+                gameSquaresArray[row+1][col-1].style.background = "blue";
+        
+            }
+
+            else if(pieceName[(row+1)*8 + col-1].textContent[0]!==pieceColor){
+            gameSquaresArray[row+1][col-1].style.background = "blue";
+        }
+
+
+        }
     }
 
     if(row-1>-1){
@@ -511,6 +488,11 @@ function kingMovement(pieceColor,row,col){
             gameSquaresArray[row-1][col].style.background = "blue";
     
         }
+
+        else if(pieceName[(row-1)*8 + col].textContent[0]!==pieceColor){
+            gameSquaresArray[row-1][col].style.background = "blue";
+        }
+
     }
 
     if(row+1<8){
@@ -520,7 +502,103 @@ function kingMovement(pieceColor,row,col){
             gameSquaresArray[row+1][col].style.background = "blue";
     
         }
+
+        else if(pieceName[(row+1)*8 + col].textContent[0]!==pieceColor){
+            gameSquaresArray[row+1][col].style.background = "blue";
+        }
+
     }
+
+}
+
+function rookMovement(pieceColor,row,col){
+
+    console.log(`in rook movement pieceColor = ${pieceColor} row = ${row} col = ${col}`)
+
+    let rowUp = row-1;
+    let rowDown = row+1;
+    let colLeft = col-1;
+    let colRight = col+1;
+
+    while(rowUp>-1){
+        console.log(`in rowup row = ${rowUp}`)
+
+        if(pieceName[rowUp*8 + col].textContent===""){
+            gameSquaresArray[rowUp][col].style.background = "blue"
+        }
+        else if(pieceName[rowUp*8+col].textContent[0]!==pieceColor){
+            gameSquaresArray[rowUp][col].style.background = "blue"
+            break;
+        }
+        else if(pieceName[rowUp*8+col].textContent[0]===pieceColor){
+            break;
+        }
+        rowUp--;
+    }
+
+    while(rowDown<8){
+
+        console.log(`in rowDOwn`)
+        if(pieceName[rowDown*8+col].textContent===""){
+            gameSquaresArray[rowDown][col].style.background = "blue"
+        }
+        else if(pieceName[rowDown*8+col].textContent[0]!==pieceColor){
+            gameSquaresArray[rowDown][col].style.background = "blue"
+            break;
+        }
+        else if(pieceName[rowDown*8+col].textContent[0]===pieceColor){
+            break;
+        }
+
+        rowDown++;
+
+    }
+
+    while(colLeft>-1){
+
+        console.log(`in col left`)
+
+        console.log(`row = ${row} col = ${colLeft}`)
+        if(pieceName[row*8 + colLeft].textContent===""){
+            gameSquaresArray[row][colLeft].style.background = "blue"
+        }
+        else if(pieceName[row*8 + colLeft].textContent[0]!==pieceColor){
+            gameSquaresArray[row][colLeft].style.background = "blue"
+            break;
+        }
+        else if(pieceName[row*8 +colLeft].textContent[0]===pieceColor){
+            break;
+        }
+        colLeft--;
+    }
+
+    while(colRight<8){
+
+        console.log(`in colRight`)
+        if(pieceName[row*8 +colRight].textContent===""){
+            gameSquaresArray[row][colRight].style.background = "blue"
+        }
+        else if(pieceName[row*8 +colRight].textContent[0]!==pieceColor){
+            gameSquaresArray[row][colRight].style.background = "blue"
+            break;
+        }
+        else if(pieceName[row*8 +colRight].textContent[0]===pieceColor){
+            break;
+        }
+
+        colRight++;
+
+    }
+
+}
+
+function queenMovement(pieceColor,row,col){
+
+    console.log(`in queen movement pieceColor = ${pieceColor} row = ${row} col = ${col}`)
+
+    rookMovement(pieceColor,row,col);
+
+    bishopMovement(pieceColor,row,col);
 
 }
 
@@ -535,9 +613,7 @@ gameSquares.forEach((value, index) => {
 
             // knight
             if(buttonClicked[0][0][1]==="N"){
-
                 knightMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
-
             }
 
             //bishops
@@ -562,6 +638,24 @@ gameSquares.forEach((value, index) => {
                 console.log("king aaya hai full power");
 
                 kingMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+
+            }
+
+            // rook movement
+            else if(buttonClicked[0][0][1]==="R"){
+
+                console.log("rook aaya hai");
+
+                rookMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+
+            }
+
+            // queen movement
+            else if(buttonClicked[0][0][1]=="Q"){
+
+                console.log("queen aaya hai");
+
+                queenMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
 
             }
 
@@ -636,7 +730,6 @@ gameSquares.forEach((value, index) => {
                 }
             }
 
-
             // black bishop
             else if(buttonClicked[0][0] === "BB"){
                 if(gameSquares[index].style.background==="blue"){
@@ -662,8 +755,47 @@ gameSquares.forEach((value, index) => {
 
                 if(kingColumn<clickedColumn){
 
-                    castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
-                    colorBoard();
+
+                    if(clickedColumn-kingColumn===2){
+
+                        // castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+                        // colorBoard();
+
+                        if(gameSquares[index].style.background==="blue"){
+                            console.log("daal do piece")
+                            castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+                            colorBoard();
+                        }
+                        else{
+                            colorBoard();
+                        }
+                    }
+                    else{
+
+                        if(gameSquares[index].style.background==="blue"){
+                            console.log("daal do piece")
+                            cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WK");
+                            colorBoard();
+                        }
+                        else{
+                            colorBoard();
+                        }
+
+                    }
+                    
+                }
+
+                else {
+
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WK");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
+
                 }
             }
 
@@ -680,9 +812,102 @@ gameSquares.forEach((value, index) => {
 
                 if(kingColumn<clickedColumn){
 
-                    castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+
+                    if(clickedColumn-kingColumn===2){
+
+                        if(gameSquares[index].style.background==="blue"){
+                            console.log("daal do piece")
+                            castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+                            colorBoard();
+                        }
+                        else{
+                            colorBoard();
+                        }
+                    }
+                    else{
+
+                        if(gameSquares[index].style.background==="blue"){
+                            console.log("daal do piece")
+                            cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BK");
+                            colorBoard();
+                        }
+                        else{
+                            colorBoard();
+                        }
+
+                    }
+                    
+                }
+                
+                else{
+
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BK");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
+
+                }
+                
+            }
+
+            //white rook
+            else if(buttonClicked[0][0]=="WR"){
+
+                if(gameSquares[index].style.background==="blue"){
+                    console.log("daal do piece")
+                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WR");
                     colorBoard();
                 }
+                else{
+                    colorBoard();
+                }
+
+            }
+
+            //black rook
+            else if(buttonClicked[0][0]=="BR"){
+
+                if(gameSquares[index].style.background==="blue"){
+                    console.log("daal do piece")
+                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BR");
+                    colorBoard();
+                }
+                else{
+                    colorBoard();
+                }
+
+            }
+
+            //White queen
+            else if(buttonClicked[0][0]=="WQ"){
+
+                if(gameSquares[index].style.background==="blue"){
+                    console.log("daal do piece")
+                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WQ");
+                    colorBoard();
+                }
+                else{
+                    colorBoard();
+                }
+
+            }
+
+            //Black queen
+            else if(buttonClicked[0][0]=="BQ"){
+
+                if(gameSquares[index].style.background==="blue"){
+                    console.log("daal do piece")
+                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BQ");
+                    colorBoard();
+                }
+                else{
+                    colorBoard();
+                }
+
             }
 
             buttonClicked = [];
