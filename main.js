@@ -1,5 +1,3 @@
-// rook ki movement banani hai
-// queen ki movement banani hai
 // check capture hai -> jo bhi square hoga uski row and column check karenge then diagonals then knight ke liye
 
 let gameSquares = document.querySelectorAll(".gameButton");
@@ -254,6 +252,121 @@ function bishopMovement(pieceColor,row,col){
 
     console.log("in bishop movement")
     console.log(`pieceColor = ${pieceColor} row = ${row} col = ${col}`)
+
+    let leftUpCol = col-1;
+    let leftDownCol = col-1;
+    let rightUpCol = col + 1;
+    let rightDownCol = col + 1;
+    let upRow = row-1;
+    let downRow = row+1;
+
+    console.log("")
+    if(upRow>-1){
+        console.log(`in upRow = ${upRow}`)
+        if(leftUpCol>-1){
+
+            console.log(`in leftUpCol = ${leftUpCol}`)
+
+            let dummyRow = upRow;
+            while(leftUpCol>-1 && dummyRow>-1){
+                console.log(`loop ke andar leftUpCol = ${leftUpCol} dummyRow = ${upRow}`)
+                if(pieceName[dummyRow*8 + leftUpCol].textContent === ""){
+    
+                    gameSquaresArray[dummyRow][leftUpCol].style.background = "blue";
+    
+                }
+                else if(pieceName[dummyRow*8 + leftUpCol].textContent[0] !== pieceColor){
+                    gameSquaresArray[dummyRow][leftUpCol].style.background = "blue";
+                    break;
+                }
+                else if(pieceName[dummyRow*8 + leftUpCol].textContent[0] === pieceColor){
+                    break;
+                }
+                leftUpCol--;
+                dummyRow--;
+            }
+        }
+
+        if(rightUpCol<8){
+            console.log(`in rightUpCol = ${rightUpCol}`)
+            let dummyRow = upRow;
+            while(rightUpCol<8 && dummyRow>-1){
+
+                console.log(`loop ke andar leftUpCol = ${rightUpCol} dummyRow = ${upRow}`)
+
+                if(pieceName[dummyRow*8 + rightUpCol].textContent === ""){
+    
+                    gameSquaresArray[dummyRow][rightUpCol].style.background = "blue";
+    
+                }
+                else if(pieceName[dummyRow*8 + rightUpCol].textContent[0] !== pieceColor){
+                    gameSquaresArray[dummyRow][rightUpCol].style.background = "blue";
+                    break;
+                }
+                else if(pieceName[dummyRow*8 + rightUpCol].textContent[0] === pieceColor){
+                    break;
+                }
+                rightUpCol++;
+                dummyRow--;
+            }
+
+        }
+    }
+
+    if(downRow<8){
+        console.log(`in downRow = ${downRow}`)
+
+        if(leftDownCol>-1){
+            console.log(`in leftDownCol`)
+
+            let dummyRow = downRow;
+            while(leftDownCol>-1 && dummyRow<8){
+                
+                console.log(`loop mein leftDownCol = ${leftDownCol} dummyRow = ${dummyRow}`)
+
+                if(pieceName[dummyRow*8 + leftDownCol].textContent === ""){
+    
+                    gameSquaresArray[dummyRow][leftDownCol].style.background = "blue";
+    
+                }
+                else if(pieceName[dummyRow*8 + leftDownCol].textContent[0] !== pieceColor){
+                    gameSquaresArray[dummyRow][leftDownCol].style.background = "blue";
+                    break;
+                }
+                else if(pieceName[dummyRow*8 + leftDownCol].textContent[0] === pieceColor){
+                    break;
+                }
+                leftDownCol--;
+                dummyRow++;
+            }
+        }
+
+        if(rightDownCol<8 ){
+            console.log(`in rightDownCol`)
+
+            let dummyRow = downRow;
+            while(rightDownCol<8){
+                console.log(`loop mein rightDownCol = ${rightDownCol} dummyRow = ${dummyRow}`)
+
+                if(pieceName[dummyRow*8 + rightDownCol].textContent === ""){
+    
+                    gameSquaresArray[dummyRow][rightDownCol].style.background = "blue";
+    
+                }
+                else if(pieceName[dummyRow*8 + rightDownCol].textContent[0] !== pieceColor){
+                    gameSquaresArray[dummyRow][rightDownCol].style.background = "blue";
+                    break;
+                }
+                else if(pieceName[dummyRow*8 + rightUpCol].textContent[0] === pieceColor){
+                    break;
+                }
+                rightDownCol++;
+                dummyRow++;
+            }
+
+        }
+
+    }
 
 }
 
@@ -678,6 +791,9 @@ gameSquares.forEach((value, index) => {
                         colorBoard();
                     }
                 }
+                else{
+                    colorBoard();
+                }
             }
 
             //white pawn
@@ -692,14 +808,22 @@ gameSquares.forEach((value, index) => {
                         colorBoard();
                     }
                 }
+                else{
+                    colorBoard();
+                }
             }
 
             //white knight
             else if(buttonClicked[0][0] === "WN"){
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WN");
-                    colorBoard();
+                if(turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WN");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
@@ -708,10 +832,15 @@ gameSquares.forEach((value, index) => {
 
             //black knight
             else if(buttonClicked[0][0] === "BN"){
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BN");
-                    colorBoard();
+                if(!turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BN");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
@@ -720,10 +849,15 @@ gameSquares.forEach((value, index) => {
 
             // white bishop 
             else if(buttonClicked[0][0] === "WB"){
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WB");
-                    colorBoard();
+                if(turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WB");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
@@ -732,10 +866,15 @@ gameSquares.forEach((value, index) => {
 
             // black bishop
             else if(buttonClicked[0][0] === "BB"){
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BB");
-                    colorBoard();
+                if(!turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BB");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
@@ -744,34 +883,50 @@ gameSquares.forEach((value, index) => {
 
             //white king
             else if(buttonClicked[0][0]==="WK"){
-                console.log(`index = ${index}`);
-                let kingRow = buttonClicked[0][1];
-                let kingColumn = buttonClicked[0][2];
-                let clickedColumn = index % 8;
-                let clickedRow = Math.floor(index / 8);
-
-                console.log(`kingCol = ${kingColumn} kingRow = ${kingRow}`);
-                console.log(`clickedCol = ${clickedColumn} clickedRow = ${clickedRow}`);
-
-                if(kingColumn<clickedColumn){
-
-
-                    if(clickedColumn-kingColumn===2){
-
-                        // castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
-                        // colorBoard();
-
-                        if(gameSquares[index].style.background==="blue"){
-                            console.log("daal do piece")
-                            castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
-                            colorBoard();
+                if(turn){
+                    console.log(`index = ${index}`);
+                    let kingRow = buttonClicked[0][1];
+                    let kingColumn = buttonClicked[0][2];
+                    let clickedColumn = index % 8;
+                    let clickedRow = Math.floor(index / 8);
+    
+                    console.log(`kingCol = ${kingColumn} kingRow = ${kingRow}`);
+                    console.log(`clickedCol = ${clickedColumn} clickedRow = ${clickedRow}`);
+    
+                    if(kingColumn<clickedColumn){
+    
+    
+                        if(clickedColumn-kingColumn===2){
+    
+                            // castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+                            // colorBoard();
+    
+                            if(gameSquares[index].style.background==="blue"){
+                                console.log("daal do piece")
+                                castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+                                colorBoard();
+                            }
+                            else{
+                                colorBoard();
+                            }
                         }
                         else{
-                            colorBoard();
+    
+                            if(gameSquares[index].style.background==="blue"){
+                                console.log("daal do piece")
+                                cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WK");
+                                colorBoard();
+                            }
+                            else{
+                                colorBoard();
+                            }
+    
                         }
+                        
                     }
-                    else{
-
+    
+                    else {
+    
                         if(gameSquares[index].style.background==="blue"){
                             console.log("daal do piece")
                             cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WK");
@@ -780,52 +935,57 @@ gameSquares.forEach((value, index) => {
                         else{
                             colorBoard();
                         }
-
+    
                     }
-                    
                 }
-
-                else {
-
-                    if(gameSquares[index].style.background==="blue"){
-                        console.log("daal do piece")
-                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WK");
-                        colorBoard();
-                    }
-                    else{
-                        colorBoard();
-                    }
-
+                else{
+                    colorBoard();
                 }
             }
 
             //black king
             else if(buttonClicked[0][0]==="BK"){
-                console.log(`index = ${index}`);
-                let kingRow = buttonClicked[0][1];
-                let kingColumn = buttonClicked[0][2];
-                let clickedColumn = index % 8;
-                let clickedRow = Math.floor(index / 8);
-
-                console.log(`kingCol = ${kingColumn} kingRow = ${kingRow}`);
-                console.log(`clickedCol = ${clickedColumn} clickedRow = ${clickedRow}`);
-
-                if(kingColumn<clickedColumn){
-
-
-                    if(clickedColumn-kingColumn===2){
-
-                        if(gameSquares[index].style.background==="blue"){
-                            console.log("daal do piece")
-                            castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
-                            colorBoard();
+                if(!turn){
+                    console.log(`index = ${index}`);
+                    let kingRow = buttonClicked[0][1];
+                    let kingColumn = buttonClicked[0][2];
+                    let clickedColumn = index % 8;
+                    let clickedRow = Math.floor(index / 8);
+    
+                    console.log(`kingCol = ${kingColumn} kingRow = ${kingRow}`);
+                    console.log(`clickedCol = ${clickedColumn} clickedRow = ${clickedRow}`);
+    
+                    if(kingColumn<clickedColumn){
+    
+    
+                        if(clickedColumn-kingColumn===2){
+    
+                            if(gameSquares[index].style.background==="blue"){
+                                console.log("daal do piece")
+                                castle(clickedRow,clickedColumn,kingRow,kingColumn,buttonClicked[0][0][0])
+                                colorBoard();
+                            }
+                            else{
+                                colorBoard();
+                            }
                         }
                         else{
-                            colorBoard();
+    
+                            if(gameSquares[index].style.background==="blue"){
+                                console.log("daal do piece")
+                                cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BK");
+                                colorBoard();
+                            }
+                            else{
+                                colorBoard();
+                            }
+    
                         }
+                        
                     }
+                    
                     else{
-
+    
                         if(gameSquares[index].style.background==="blue"){
                             console.log("daal do piece")
                             cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BK");
@@ -834,33 +994,26 @@ gameSquares.forEach((value, index) => {
                         else{
                             colorBoard();
                         }
-
+    
                     }
-                    
                 }
-                
                 else{
-
-                    if(gameSquares[index].style.background==="blue"){
-                        console.log("daal do piece")
-                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BK");
-                        colorBoard();
-                    }
-                    else{
-                        colorBoard();
-                    }
-
+                    colorBoard();
                 }
                 
             }
 
             //white rook
             else if(buttonClicked[0][0]=="WR"){
-
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WR");
-                    colorBoard();
+                if(turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WR");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
@@ -870,11 +1023,15 @@ gameSquares.forEach((value, index) => {
 
             //black rook
             else if(buttonClicked[0][0]=="BR"){
-
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BR");
-                    colorBoard();
+                if(!turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BR");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
@@ -884,11 +1041,15 @@ gameSquares.forEach((value, index) => {
 
             //White queen
             else if(buttonClicked[0][0]=="WQ"){
-
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WQ");
-                    colorBoard();
+                if(turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"WQ");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
@@ -898,11 +1059,15 @@ gameSquares.forEach((value, index) => {
 
             //Black queen
             else if(buttonClicked[0][0]=="BQ"){
-
-                if(gameSquares[index].style.background==="blue"){
-                    console.log("daal do piece")
-                    cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BQ");
-                    colorBoard();
+                if(!turn){
+                    if(gameSquares[index].style.background==="blue"){
+                        console.log("daal do piece")
+                        cutPiece(buttonClicked[0][1],buttonClicked[0][2],index,"BQ");
+                        colorBoard();
+                    }
+                    else{
+                        colorBoard();
+                    }
                 }
                 else{
                     colorBoard();
