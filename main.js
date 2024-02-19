@@ -1,4 +1,4 @@
-// check capture hai -> jo bhi square hoga uski row and column check karenge then diagonals then knight ke liye
+// debug isSafe function
 
 let gameSquares = document.querySelectorAll(".gameButton");
 let gameSquaresArray = [];
@@ -453,7 +453,7 @@ function pawnMovement(pieceColor,row,col){
             //right diagonal cut
             if(col+1<8){
                 if(pieceName[(row+1)*8 + col+1].textContent[0]!==pieceColor && pieceName[(row+1)*8 + col+1].textContent!==""){
-    
+                    console.log("idhar se blue kiya")
                     gameSquaresArray[row+1][col+1].style.background = "blue";
     
                 }
@@ -478,14 +478,15 @@ function pawnMovement(pieceColor,row,col){
             }
 
             //right diagonal cut
-            if(pieceName[(row+1)*8 + col+1].textContent!==pieceColor && pieceName[(row+1)*8 + col +1].textContent!==""){
+            if(pieceName[(row+1)*8 + col+1].textContent[0]!==pieceColor && pieceName[(row+1)*8 + col +1].textContent!==""){
+                console.log("idhar se print karaya")
 
                 gameSquaresArray[row+1][col+1].style.background = "blue";
 
             }
 
             //left diagonal cut
-            if(pieceName[(row+1)*8 + col-1].textContent!==pieceColor && pieceName[(row+1)*8 + col -1].textContent!==""){
+            if(pieceName[(row+1)*8 + col-1].textContent[0]!==pieceColor && pieceName[(row+1)*8 + col -1].textContent!==""){
 
                 gameSquaresArray[row+1][col-1].style.background = "blue";
 
@@ -497,43 +498,350 @@ function pawnMovement(pieceColor,row,col){
 
 }
 
+function isSafe(row,col,pieceColor){
+    console.log(`in isSafe row = ${row} col = ${col} pieceColor = ${pieceColor}`)
+
+    if(row>-1 && row<8 && col<8 && col>-1){
+        //row check
+        {
+            let tempUpRow = row-1;
+            while(tempUpRow>-1){
+    
+                if(pieceName[tempUpRow*8 + col].textContent!==""){
+    
+                    if(pieceName[tempUpRow*8 + col].textContent[0]!==pieceColor){
+                        if(pieceName[tempUpRow*8+col].textContent[1]==="R" || pieceName[tempUpRow*8+col].textContent[1]==="Q"){
+                            console.log("1 se ho raha return false");
+                            return false;
+                        }
+                    }
+    
+                }
+                tempUpRow--;
+            }
+    
+            let tempDownRow = row+1;
+            while(tempDownRow<8){
+    
+                if(pieceName[tempDownRow*8 + col].textContent!==""){
+    
+                    if(pieceName[tempDownRow*8 + col].textContent[0]!==pieceColor){
+                        if(pieceName[tempDownRow*8+col].textContent[1]==="R" || pieceName[tempDownRow*8+col].textContent[1]==="Q"){
+                            console.log("2 se ho raha return false");
+                            return false;
+                        }
+                    }
+    
+                }
+                tempDownRow++;
+            }
+        }
+
+
+        //diagonal check
+        {
+            let downRow = row;
+            let upRow = row;
+            let leftUpCol = col;
+            let rightUpCol = col;
+            let leftDownCol = col;
+            let rightDownCol = col;
+    
+            if(downRow<8){
+                console.log(`in downrow`)
+    
+                let tempDownRow = downRow;
+                while(leftDownCol>-1 && tempDownRow<8){
+                    console.log(`\nin left down col`)
+                    console.log(`row = ${tempDownRow} col = ${leftDownCol}`)
+                    if(pieceName[tempDownRow*8 + leftDownCol].textContent!==""){
+    
+                        if(pieceName[tempDownRow*8 + leftDownCol].textContent[0]!==pieceColor){
+                            
+                            if(pieceName[tempDownRow*8 + leftDownCol].textContent[1]==="Q" || pieceName[tempDownRow*8 + leftDownCol].textContent[1]==="B" || pieceName[tempDownRow*8 + leftDownCol].textContent[1]==="P"){
+                                console.log("3 se ho raha return false");
+                                return false;
+                            }
+    
+                        }
+                        else{
+                            console.log("break kar diya")
+                            break;
+                        }
+    
+                    }
+                    leftDownCol--;
+                    tempDownRow++;
+                }
+                
+                tempDownRow = downRow;
+                while(rightDownCol<8 && tempDownRow<8){
+                    console.log(`\nin right down col`);
+                    console.log(`rightDownCol = ${rightDownCol} tempDownRow = ${tempDownRow}`)
+                    if(pieceName[tempDownRow*8 + rightDownCol].textContent!==""){
+    
+                        if(pieceName[tempDownRow*8 + rightDownCol].textContent[0]!==pieceColor){
+                            
+                            if(pieceName[tempDownRow*8 + rightDownCol].textContent[1]==="Q" || pieceName[tempDownRow*8 + rightDownCol].textContent[1]==="B" || pieceName[tempDownRow*8 + rightDownCol].textContent[1]==="P"){
+                                console.log("4 se ho raha return false");
+                                return false;
+                            }
+    
+                        }
+                        else{
+                            break;  
+                        }
+    
+                    }
+                    rightDownCol++;
+                    tempDownRow++;
+                }
+    
+            }
+    
+            if(upRow>-1){
+    
+                let tempUpRow = upRow;
+                while(leftUpCol>-1 && tempUpRow>-1){
+                    console.log("\nin block 5");
+                    console.log(`row = ${tempUpRow} col = ${leftUpCol}`)
+    
+                    if(pieceName[tempUpRow*8 + leftUpCol].textContent!==""){
+                        console.log("pehli condition")
+    
+                        if(pieceName[tempUpRow*8 + leftUpCol].textContent[0]!==pieceColor){
+                            console.log("dusri condition")
+    
+                            if(pieceName[tempUpRow*8 + leftUpCol].textContent[1]==="Q" || pieceName[tempUpRow*8 + leftUpCol].textContent[1]==="B" || pieceName[tempUpRow*8 + leftUpCol].textContent[1]==="P"){
+                                console.log("5 se ho raha return false");
+                                return false;
+                            }
+    
+                        }
+                        else{
+                            break;
+                        }
+    
+                    }
+    
+                    tempUpRow--;
+                    leftUpCol--;
+    
+                }
+    
+                tempUpRow = upRow-1;
+                while(tempUpRow>-1 && rightUpCol<8){
+    
+                    if(pieceName[tempUpRow*8 + rightUpCol].textContent!==""){
+    
+                        if(pieceName[tempUpRow*8 + rightUpCol].textContent[0]!==pieceColor){
+    
+                            if(pieceName[tempUpRow*8 + rightUpCol].textContent[1]==="Q" || pieceName[tempUpRow*8 + rightUpCol].textContent[1]==="B" || pieceName[tempUpRow*8 + rightUpCol].textContent[1]==="P"){
+                                console.log("6 se ho raha return false");
+                                return false;
+                            }
+    
+                        }
+                        else{
+                            break;
+                        }
+    
+                    }
+    
+                    tempUpRow--;
+                    rightUpCol++;
+    
+                }
+    
+            }
+        }
+
+
+        //column check
+        {
+            let tempRightCol = col;
+            if(tempRightCol<8){
+    
+                if(pieceName[row*8 + tempRightCol].textContent!==""){
+                    
+                    if(pieceName[row*8 + tempRightCol].textContent[0]!==pieceColor){
+    
+                        if(pieceName[row*8 + tempRightCol].textContent[1]==="R" || pieceName[row*8 + tempRightCol].textContent[1]==="Q" || pieceName[row*8 + tempRightCol].textContent[1]==="K"){
+                            console.log("7 se ho raha return false");
+                            return false;
+                        }
+    
+                    }
+                
+                }
+                tempRightCol++;
+            }
+    
+            let tempLeftCol = col;
+            if(tempLeftCol>-1){
+    
+                if(pieceName[row*8 + tempLeftCol].textContent!==""){
+                    
+                    if(pieceName[row*8 + tempLeftCol].textContent[0]!==pieceColor){
+    
+                        if(pieceName[row*8 + tempLeftCol].textContent[1]==="R" || pieceName[row*8 + tempLeftCol].textContent[1]==="Q" || pieceName[row*8 + tempLeftCol].textContent[1]==="K"){
+                            console.log("8 se ho raha return false");
+                            return false;
+                        }
+    
+                    }
+                
+                }
+                tempLeftCol--;
+            }
+        }
+
+
+        //knight check
+        {
+
+            let tempUpRow = row;
+            
+            if(tempUpRow-1>-1){
+                
+                if(col-2>-1){
+                    if(pieceName[(tempUpRow-1)*8 + col-2].textContent!==""){
+                        if(pieceName[(tempUpRow-1)*8 + col-2].textContent[0]!==pieceColor && pieceName[(tempUpRow-1)*8 + col-2].textContent[1]==="N"){
+                            console.log("9 se ho raha return false");
+                            return false;
+                        }
+                    }
+                }
+
+                if(col+2<8){
+                    if(pieceName[(tempUpRow-1)*8 + col+2].textContent!==""){
+                        if(pieceName[(tempUpRow-1)*8 + col+2].textContent[0]!==pieceColor && pieceName[(tempUpRow-1)*8 + col+2].textContent[1]==="N"){
+                            console.log("10 se ho raha return false");
+                            return false;
+                        }
+                    }
+                }
+                
+                
+            }
+
+            if(tempUpRow-2>-1){
+
+                if(col-1>-1){
+
+                    if(pieceName[(tempUpRow-2)*8 + col-1].textContent!==""){
+                        if(pieceName[(tempUpRow-2)*8 + col-1].textContent[0]!==pieceColor && pieceName[(tempUpRow-2)*8 + col-1].textContent[1]==="N"){
+                            console.log("11 se ho raha return false");
+                            return false;
+                        }
+                    }
+
+                }
+
+                if(col+1<8){
+
+                    if(pieceName[(tempUpRow-2)*8 + col+1].textContent!==""){
+                        if(pieceName[(tempUpRow-2)*8 + col+1].textContent[0]!==pieceColor && pieceName[(tempUpRow-2)*8 + col+1].textContent[1]==="N"){
+                            console.log("12 se ho raha return false");
+                            return false;
+                        }
+                    }
+
+                }
+
+            }
+            
+            let tempDownRow = row;
+            if(tempDownRow+1<8){
+
+                if(col-2>-1){
+                    if(pieceName[(tempDownRow+1)*8 + col-2].textContent!==""){
+                        if(pieceName[(tempDownRow+1)*8 + col-2].textContent[0]!==pieceColor && pieceName[(tempDownRow+1)*8 + col-2].textContent[1]==="N"){
+                            console.log("13 se ho raha return false");
+                            return false;
+                        }
+                    }
+                }
+
+                if(col+2<8){
+                    if(pieceName[(tempDownRow+1)*8 + col+2].textContent!==""){
+                        if(pieceName[(tempDownRow+1)*8 + col+2].textContent[0]!==pieceColor && pieceName[(tempDownRow+1)*8 + col+2].textContent[1]==="N"){
+                            console.log("14 se ho raha return false");
+                            return false;
+                        }
+                    }
+                }
+
+            }
+
+            if(tempDownRow+2<8){
+
+                if(col-1>-1){
+
+                    if(pieceName[(tempDownRow+2)*8 + col-1].textContent!==""){
+                        if(pieceName[(tempDownRow+2)*8 + col-1].textContent[0]!==pieceColor && pieceName[(tempDownRow+2)*8 + col-1].textContent[1]==="N"){
+                            console.log("15 se ho raha return false");
+                            return false;
+                        }
+                    }
+
+                }
+
+                if(col+1<8){
+
+                    if(pieceName[(tempDownRow+2)*8 + col+1].textContent!==""){
+                        if(pieceName[(tempDownRow+2)*8 + col+1].textContent[0]!==pieceColor && pieceName[(tempDownRow+2)*8 + col+1].textContent[1]==="N"){
+                            console.log("16 se ho raha return false");
+                            return false;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+    console.log("bahar se true return kara diya")
+    return true;
+
+}
+
 function kingMovement(pieceColor,row,col){
 
     console.log("in kings movement");
     console.log(`pieceColor = ${pieceColor} row = ${row} col = ${col}`);
 
     if(col+1<8){
-        if(pieceName[row*8 + col+1].textContent===""  ){
+        if(pieceName[row*8 + col+1].textContent===""  && isSafe(row,col+1,pieceColor)){
     
             gameSquaresArray[row][col+1].style.background = "blue";
     
         }
-        else if(pieceName[row*8 + col+1].textContent[0]!==pieceColor){
+        else if(pieceName[row*8 + col+1].textContent[0]!==pieceColor && isSafe(row,col+1,pieceColor)){
             gameSquaresArray[row][col+1].style.background = "blue";
         }
 
         if(row-1>-1){
 
             console.log(`row -1 = ${row-1} col+1 = ${col+1}`)
-            if(pieceName[(row-1)*8 + col+1].textContent==="" ){
+            if(pieceName[(row-1)*8 + col+1].textContent===""  && isSafe(row-1,col+1,pieceColor)){
     
                 gameSquaresArray[row-1][col+1].style.background = "blue";
         
             }
-            else if(pieceName[(row-1)*8 + col+1].textContent[0]!==pieceColor){
+            else if(pieceName[(row-1)*8 + col+1].textContent[0]!==pieceColor && isSafe(row-1,col+1,pieceColor)){
                 gameSquaresArray[row-1][col+1].style.background = "blue";
             }
 
         }
 
         if(row+1<8){
-            if(pieceName[(row+1)*8 + col+1].textContent===""){
+            if(pieceName[(row+1)*8 + col+1].textContent==="" && isSafe(row+1,col+1,pieceColor)){
     
                 gameSquaresArray[row+1][col+1].style.background = "blue";
         
             }
 
-            else if(pieceName[(row+1)*8 + col+1].textContent[0]!==pieceColor){
+            else if(pieceName[(row+1)*8 + col+1].textContent[0]!==pieceColor && isSafe(row+1,col+1,pieceColor)){
             gameSquaresArray[row+1][col+1].style.background = "blue";
         }
 
@@ -542,37 +850,37 @@ function kingMovement(pieceColor,row,col){
     }
 
     if(col+2<8){
-        if(pieceName[row*8 + col+2].textContent===""){
+        if(pieceName[row*8 + col+2].textContent==="" && isSafe(row,col+2,pieceColor)){
     
             gameSquaresArray[row][col+2].style.background = "blue";
     
         }
 
-        else if(pieceName[row*8 + col+2].textContent[0]!==pieceColor){
+        else if(pieceName[row*8 + col+2].textContent[0]!==pieceColor && isSafe(row,col+2,pieceColor)){
             gameSquaresArray[row][col+2].style.background = "blue";
         }
 
     }
 
     if(col-1>-1){
-        if(pieceName[row*8 + col-1].textContent==="" ){
+        if(pieceName[row*8 + col-1].textContent===""  && isSafe(row,col-1,pieceColor)){
     
             gameSquaresArray[row][col-1].style.background = "blue";
     
         }
-        else if(pieceName[row*8 + col-1].textContent[0]!==pieceColor){
+        else if(pieceName[row*8 + col-1].textContent[0]!==pieceColor && isSafe(row,col-1,pieceColor)){
             gameSquaresArray[row][col-1].style.background = "blue";
         }
 
         if(row-1>-1){
 
-            if(pieceName[(row-1)*8 + col-1].textContent===""){
+            if(pieceName[(row-1)*8 + col-1].textContent==="" && isSafe(row-1,col-1,pieceColor)){
     
                 gameSquaresArray[row-1][col-1].style.background = "blue";
         
             }
 
-            else if(pieceName[(row-1)*8 + col-1].textContent[0]!==pieceColor){
+            else if(pieceName[(row-1)*8 + col-1].textContent[0]!==pieceColor && isSafe(row-1,col-1,pieceColor)){
             gameSquaresArray[row-1][col-1].style.background = "blue";
         }
 
@@ -580,13 +888,13 @@ function kingMovement(pieceColor,row,col){
         }
 
         if(row+1<8){
-            if(pieceName[(row+1)*8 + col-1].textContent===""){
+            if(pieceName[(row+1)*8 + col-1].textContent==="" && isSafe(row+1,col-1,pieceColor)){
     
                 gameSquaresArray[row+1][col-1].style.background = "blue";
         
             }
 
-            else if(pieceName[(row+1)*8 + col-1].textContent[0]!==pieceColor){
+            else if(pieceName[(row+1)*8 + col-1].textContent[0]!==pieceColor && isSafe(row+1,col-1,pieceColor)){
             gameSquaresArray[row+1][col-1].style.background = "blue";
         }
 
@@ -596,13 +904,13 @@ function kingMovement(pieceColor,row,col){
 
     if(row-1>-1){
 
-        if(pieceName[(row-1)*8 + col].textContent===""){
+        if(pieceName[(row-1)*8 + col].textContent==="" && isSafe(row-1,col,pieceColor)){
     
             gameSquaresArray[row-1][col].style.background = "blue";
     
         }
 
-        else if(pieceName[(row-1)*8 + col].textContent[0]!==pieceColor){
+        else if(pieceName[(row-1)*8 + col].textContent[0]!==pieceColor && isSafe(row-1,col,pieceColor)){
             gameSquaresArray[row-1][col].style.background = "blue";
         }
 
@@ -610,13 +918,13 @@ function kingMovement(pieceColor,row,col){
 
     if(row+1<8){
 
-        if(pieceName[(row+1)*8 + col].textContent===""){
+        if(pieceName[(row+1)*8 + col].textContent==="" && isSafe(row+1,col,pieceColor)){
     
             gameSquaresArray[row+1][col].style.background = "blue";
     
         }
 
-        else if(pieceName[(row+1)*8 + col].textContent[0]!==pieceColor){
+        else if(pieceName[(row+1)*8 + col].textContent[0]!==pieceColor && isSafe(row+1,col,pieceColor)){
             gameSquaresArray[row+1][col].style.background = "blue";
         }
 
