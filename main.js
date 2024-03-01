@@ -1,11 +1,20 @@
+//inCheck banao
 // debug isSafe function
+// isSafe mein pawn and king ko daalna hai
 
+//board and piece related buttons
 let gameSquares = document.querySelectorAll(".gameButton");
 let gameSquaresArray = [];
 let pieceName = document.querySelectorAll("#pieceName");
 let pieceImage = document.querySelectorAll(".pieceImage");
 let pieceImageArray = [];
 console.log(gameSquares);
+
+//game related buttons
+let buttonClicked = [];
+let turn = true;
+let blackInCheck = false;
+let whiteInCheck = false;
 
 let pieceImagesDictionary = {
     "WP": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/75px-Chess_plt45.svg.png",
@@ -29,17 +38,31 @@ function colorBoard(){
     let squareIndex = 0;
     for (let outerLoop = 0; outerLoop < 8; outerLoop++) {
         for (let innerLoop = 0; innerLoop < 8; innerLoop++) {
+
             if (startColorGreen) {
-                if (squareIndex % 2 === 0) {
-                    gameSquares[squareIndex].style.background = "white";
-                } else {
-                    gameSquares[squareIndex].style.background = "#81B64C";
+
+                if((pieceName[squareIndex].textContent==="BK" && blackInCheck ) || (pieceName[squareIndex].textContent==="WK" && whiteInCheck )){
+                    gameSquares[squareIndex].style.background = "red";
                 }
-            } else {
-                if (squareIndex % 2 === 0) {
-                    gameSquares[squareIndex].style.background = "#81B64C";
-                } else {
-                    gameSquares[squareIndex].style.background = "white";
+                else{
+                    if (squareIndex % 2 === 0) {
+                        gameSquares[squareIndex].style.background = "white";
+                    } else {
+                        gameSquares[squareIndex].style.background = "#81B64C";
+                    }
+                }
+
+            } 
+            else {
+                if((pieceName[squareIndex].textContent==="BK" && blackInCheck ) || (pieceName[squareIndex].textContent==="WK" && whiteInCheck )){
+                    gameSquares[squareIndex].style.background = "red";
+                }
+                else{
+                    if (squareIndex % 2 === 0) {
+                        gameSquares[squareIndex].style.background = "#81B64C";
+                    } else {
+                        gameSquares[squareIndex].style.background = "white";
+                    }
                 }
             }
             squareIndex++;
@@ -63,8 +86,1004 @@ for (let i = 0; i < 64; i++) {
 }
 
 //adding event Listeners
-let buttonClicked = [];
-let turn = true;
+
+function inCheck(){
+    
+    console.log("")
+    console.log("from in check function")
+    
+    for(let index = 0;index<gameSquares.length;index++){
+
+        if(pieceName[index].textContent!==""){
+
+            let col = index % 8;
+            let row = Math.floor(index / 8); 
+            
+            //white pawn
+            if(pieceName[index].textContent==="WP"){
+                
+                console.log("in white pawn")
+                console.log(`row = ${row} col = ${col}`)
+
+                if(row-1>-1){
+                    console.log("row-1>-1")
+
+                    if(col+1<8){
+                        console.log("")
+                        console.log("right diagonal cut")
+                        console.log(`row -1 = ${row-1} col+1 = ${col+1} if ki condition = ${pieceName[(row-1)*8 + col+1].textContent==="BK"}`)
+                        //right diagonal cut
+                        if(pieceName[(row-1)*8 + col+1].textContent==="BK"){
+                            blackInCheck = true;    
+                            return ;    
+                        }
+                    }
+                    
+                    if(col-1>-1){
+                        console.log("left diagonal cut")
+                        //left diagonal cut
+                        if(pieceName[(row-1)*8 + col-1].textContent==="BK"){
+                            blackInCheck = true;
+                            return ;
+                        }
+                    }
+                }
+                
+            }
+
+            //black pawn
+            else if(pieceName[index].textContent==="BP"){
+
+                console.log("in black pawn")
+                console.log(`row = ${row} col = ${col}`)
+
+                if(row+1<8){
+                    console.log("row-1>-1")
+
+                    if(col+1<8){
+                        console.log("")
+                        console.log("right diagonal cut")
+                        console.log(`row -1 = ${row-1} col+1 = ${col+1} if ki condition = ${pieceName[(row-1)*8 + col+1].textContent==="BK"}`)
+                        //right diagonal cut
+                        if(pieceName[(row+1)*8 + col+1].textContent==="WK"){
+                            whiteInCheck = true;    
+                            return ;    
+                        }
+                    }
+                    
+                    if(col-1>-1){
+                        console.log("left diagonal cut")
+                        //left diagonal cut
+                        if(pieceName[(row+1)*8 + col-1].textContent==="WK"){
+                            whiteInCheck = true;
+                            return ;
+                        }
+                    }
+                }
+
+            }
+
+            //white rook
+            else if(pieceName[index].textContent==="WR"){
+
+                // col check
+
+                for(let c = 0;c<8;c++){
+
+                    if(pieceName[row*8 + c].textContent!==""){
+                        if(pieceName[row*8+c].textContent==="BK"){
+
+                            blackInCheck = true;
+                            return;
+
+                        }
+                    }
+
+                }
+
+                // row check
+
+                for(let r =0 ; r<8;r++){
+
+                    if(pieceName[r*8 + col].textContent!==""){
+                        if(pieceName[r*8 + col].textContent==="BK"){
+                            blackInCheck = true;
+                            return;
+                        }
+                    }
+
+                }
+
+            }
+
+            // black rook
+            else if(pieceName[index].textContent==="BR"){
+
+                // col check
+
+                for(let c = 0;c<8;c++){
+
+                    if(pieceName[row*8 + c].textContent!==""){
+                        if(pieceName[row*8+c].textContent==="WK"){
+
+                            whiteInCheck = true;
+                            return;
+
+                        }
+                    }
+
+                }
+
+                // row check
+
+                for(let r =0 ; r<8;r++){
+
+                    if(pieceName[r*8 + col].textContent!==""){
+                        if(pieceName[r*8 + col].textContent==="WK"){
+                            whiteInCheck = true;
+                            return;
+                        }
+                    }
+
+                }
+
+            }
+
+            //white bishop
+            else if(pieceName[index].textContent==="WB"){
+                console.log(`in white bishop`)
+
+                //left up diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftUpRow = row-1;
+
+                    while(leftUpCol>-1 && leftUpRow>-1){
+
+                        if(pieceName[leftUpRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + leftUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftUpRow--;
+
+                    }
+
+                }
+
+                //right up diagonal
+                {
+                    console.log(`in right up diagonal`)
+                    let rightUpCol = col+1;
+                    let leftUpRow = row-1;
+
+                    while(rightUpCol<8 && leftUpRow>-1){
+
+                        console.log(`loop mein ghuste hue rightUpCol = ${rightUpCol} leftUpRow = ${leftUpRow}`)
+
+                        if(pieceName[leftUpRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + rightUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        leftUpRow--;
+
+                    }
+                    
+                }
+
+                //left down diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftDownRow = row+1;
+
+                    while(leftUpCol>-1 && leftDownRow<8){
+
+                        if(pieceName[leftDownRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftDownRow*8 + leftUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftDownRow++;
+
+                    }
+
+                }
+
+                //right down diagonal
+                {
+
+                    let rightUpCol = col+1;
+                    let rightDownRow = row+1;
+
+                    while(rightUpCol<8 && rightDownRow<8){
+
+                        if(pieceName[rightDownRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[rightDownRow*8 + rightUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        rightDownRow++;
+
+                    }
+                    
+                }
+
+            }
+
+            //black bishop
+            else if(pieceName[index].textContent==="BB"){
+
+                //left up diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftUpRow = row-1;
+
+                    while(leftUpCol>-1 && leftUpRow>-1){
+
+                        if(pieceName[leftUpRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + leftUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftUpRow--;
+
+                    }
+
+                }
+
+                //right up diagonal
+                {
+
+                    let rightUpCol = col+1;
+                    let leftUpRow = row-1;
+
+                    while(rightUpCol<8 && leftUpRow>-1){
+
+                        if(pieceName[leftUpRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + rightUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        leftUpRow--;
+
+                    }
+                    
+                }
+
+                //left down diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftDownRow = row+1;
+
+                    while(leftUpCol>-1 && leftDownRow<8){
+
+                        if(pieceName[leftDownRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftDownRow*8 + leftUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftDownRow++;
+
+                    }
+
+                }
+
+                //right down diagonal
+                {
+
+                    let rightUpCol = col+1;
+                    let rightDownRow = row+1;
+
+                    while(rightUpCol<8 && rightDownRow<8){
+
+                        if(pieceName[rightDownRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[rightDownRow*8 + rightUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        rightDownRow++;
+
+                    }
+                    
+                }
+
+            }
+
+            //white knight
+            else if(pieceName[index].textContent==="WN"){
+
+                {
+                    console.log("")
+                    console.log("in block 1")
+                    let tempRow= row -1;
+                    console.log(`tempRow = ${tempRow}`);
+                    {
+                        let tempCol = col -2;
+                        console.log(`tempCol = ${tempCol}`);
+            
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                
+                         }
+                    }
+                    {
+                        let tempCol = col +2;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                         }
+                    }
+                }
+                
+                {
+                    console.log("")
+                    console.log("in block 2")
+                    let tempRow= row +1;
+                    console.log(`tempRow = ${tempRow}`)
+                    {
+                        let tempCol = col -2;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                    {
+                        let tempCol = col +2;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                }
+                
+                {
+                    console.log("")
+                    console.log("in block 3")
+                    let tempRow= row +2;
+                    console.log(`tempRow = ${tempRow}`)
+                    {
+                        let tempCol = col -1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                    {
+                        let tempCol = col +1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                }
+                
+                {
+                    console.log("")
+                    console.log("in block 4")
+                    let tempRow = row -2;
+                    console.log(`tempRow = ${tempRow}`)
+                    {
+                        let tempCol = col -1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+                            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }  
+                         }
+                    }
+                    {
+                        let tempCol = col +1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="BK"){
+                                    blackInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                }
+
+            }
+
+            //black knight
+            else if(pieceName[index].textContent==="BN"){
+
+                {
+                    console.log("")
+                    console.log("in block 1")
+                    let tempRow= row -1;
+                    console.log(`tempRow = ${tempRow}`);
+                    {
+                        let tempCol = col -2;
+                        console.log(`tempCol = ${tempCol}`);
+            
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                
+                         }
+                    }
+                    {
+                        let tempCol = col +2;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                         }
+                    }
+                }
+                
+                {
+                    console.log("")
+                    console.log("in block 2")
+                    let tempRow= row +1;
+                    console.log(`tempRow = ${tempRow}`)
+                    {
+                        let tempCol = col -2;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                    {
+                        let tempCol = col +2;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                }
+                
+                {
+                    console.log("")
+                    console.log("in block 3")
+                    let tempRow= row +2;
+                    console.log(`tempRow = ${tempRow}`)
+                    {
+                        let tempCol = col -1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                    {
+                        let tempCol = col +1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                }
+                
+                {
+                    console.log("")
+                    console.log("in block 4")
+                    let tempRow = row -2;
+                    console.log(`tempRow = ${tempRow}`)
+                    {
+                        let tempCol = col -1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+                            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }  
+                         }
+                    }
+                    {
+                        let tempCol = col +1;
+                        console.log(`tempCol = ${tempCol}`)
+                        if((tempCol>-1 && tempCol<8)&&(tempRow> -1 && tempRow<8)&&(tempRow*8 + tempCol<64)){
+            
+                            if(pieceName[tempRow*8 + tempCol].textContent!==""){
+                                if(pieceName[tempRow*8 + tempCol].textContent==="WK"){
+                                    whiteInCheck = true;
+                                    return;
+                                }
+                                else{
+                                    return;
+                                }
+                            }
+                            
+                         }
+                    }
+                }
+
+            }
+
+            //white Queen
+            else if(pieceName[index].textContent==="WQ"){
+
+            //bishop check
+                //left up diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftUpRow = row-1;
+
+                    while(leftUpCol>-1 && leftUpRow>-1){
+
+                        if(pieceName[leftUpRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + leftUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftUpRow--;
+
+                    }
+
+                }
+
+                //right up diagonal
+                {
+
+                    let rightUpCol = col+1;
+                    let leftUpRow = row-1;
+
+                    while(rightUpCol<8 && leftUpRow>-1){
+
+                        if(pieceName[leftUpRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + rightUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        leftUpRow--;
+
+                    }
+                    
+                }
+
+                //left down diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftDownRow = row+1;
+
+                    while(leftUpCol>-1 && leftDownRow<8){
+
+                        if(pieceName[leftDownRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftDownRow*8 + leftUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftDownRow++;
+
+                    }
+
+                }
+
+                //right down diagonal
+                {
+
+                    let rightUpCol = col+1;
+                    let rightDownRow = row+1;
+
+                    while(rightUpCol<8 && rightDownRow<8){
+
+                        if(pieceName[rightDownRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[rightDownRow*8 + rightUpCol].textContent==="BK"){
+                                blackInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        rightDownRow++;
+
+                    }
+                    
+                }
+
+            //rook check
+
+            // col check
+            for(let c = 0;c<8;c++){
+
+                if(pieceName[row*8 + c].textContent!==""){
+                    if(pieceName[row*8+c].textContent==="BK"){
+
+                        blackInCheck = true;
+                        return;
+
+                    }
+                }
+
+            }
+
+            // row check
+            for(let r =0 ; r<8;r++){
+
+                if(pieceName[r*8 + col].textContent!==""){
+                    if(pieceName[r*8 + col].textContent==="BK"){
+                        blackInCheck = true;
+                        return;
+                    }
+                }
+
+            }
+
+            }
+
+            //Black Queen
+            else if(pieceName[index].textContent==="BQ"){
+
+            // black bishop
+                //left up diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftUpRow = row-1;
+
+                    while(leftUpCol>-1 && leftUpRow>-1){
+
+                        if(pieceName[leftUpRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + leftUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftUpRow--;
+
+                    }
+
+                }
+
+                //right up diagonal
+                {
+
+                    let rightUpCol = col+1;
+                    let leftUpRow = row-1;
+
+                    while(rightUpCol<8 && leftUpRow>-1){
+
+                        if(pieceName[leftUpRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[leftUpRow*8 + rightUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        leftUpRow--;
+
+                    }
+                    
+                }
+
+                //left down diagonal
+                {
+
+                    let leftUpCol = col-1;
+                    let leftDownRow = row+1;
+
+                    while(leftUpCol>-1 && leftDownRow<8){
+
+                        if(pieceName[leftDownRow*8 + leftUpCol].textContent!==""){
+
+                            if(pieceName[leftDownRow*8 + leftUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        leftUpCol--;
+                        leftDownRow++;
+
+                    }
+
+                }
+
+                //right down diagonal
+                {
+
+                    let rightUpCol = col+1;
+                    let rightDownRow = row+1;
+
+                    while(rightUpCol<8 && rightDownRow<8){
+
+                        if(pieceName[rightDownRow*8 + rightUpCol].textContent!==""){
+
+                            if(pieceName[rightDownRow*8 + rightUpCol].textContent==="WK"){
+                                whiteInCheck = true;
+                                return;
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                        rightUpCol++;
+                        rightDownRow++;
+
+                    }
+                    
+                }
+
+            // black rook
+                // col check
+
+                for(let c = 0;c<8;c++){
+
+                    if(pieceName[row*8 + c].textContent!==""){
+                        if(pieceName[row*8+c].textContent==="WK"){
+
+                            whiteInCheck = true;
+                            return;
+
+                        }
+                    }
+
+                }
+
+                // row check
+
+                for(let r =0 ; r<8;r++){
+
+                    if(pieceName[r*8 + col].textContent!==""){
+                        if(pieceName[r*8 + col].textContent==="WK"){
+                            whiteInCheck = true;
+                            return;
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+    
+    }
+
+}
 
 function cutPiece(cutPieceRow,cutPieceCol,index,text){
 
@@ -78,6 +1097,7 @@ function cutPiece(cutPieceRow,cutPieceCol,index,text){
     
     pieceName[index].textContent = text;
 
+    inCheck();
 
 }
 
@@ -501,305 +1521,7 @@ function pawnMovement(pieceColor,row,col){
 function isSafe(row,col,pieceColor){
     console.log(`in isSafe row = ${row} col = ${col} pieceColor = ${pieceColor}`)
 
-    if(row>-1 && row<8 && col<8 && col>-1){
-        //row check
-        {
-            let tempUpRow = row-1;
-            while(tempUpRow>-1){
     
-                if(pieceName[tempUpRow*8 + col].textContent!==""){
-    
-                    if(pieceName[tempUpRow*8 + col].textContent[0]!==pieceColor){
-                        if(pieceName[tempUpRow*8+col].textContent[1]==="R" || pieceName[tempUpRow*8+col].textContent[1]==="Q"){
-                            console.log("1 se ho raha return false");
-                            return false;
-                        }
-                    }
-    
-                }
-                tempUpRow--;
-            }
-    
-            let tempDownRow = row+1;
-            while(tempDownRow<8){
-    
-                if(pieceName[tempDownRow*8 + col].textContent!==""){
-    
-                    if(pieceName[tempDownRow*8 + col].textContent[0]!==pieceColor){
-                        if(pieceName[tempDownRow*8+col].textContent[1]==="R" || pieceName[tempDownRow*8+col].textContent[1]==="Q"){
-                            console.log("2 se ho raha return false");
-                            return false;
-                        }
-                    }
-    
-                }
-                tempDownRow++;
-            }
-        }
-
-
-        //diagonal check
-        {
-            let downRow = row;
-            let upRow = row;
-            let leftUpCol = col;
-            let rightUpCol = col;
-            let leftDownCol = col;
-            let rightDownCol = col;
-    
-            if(downRow<8){
-                console.log(`in downrow`)
-    
-                let tempDownRow = downRow;
-                while(leftDownCol>-1 && tempDownRow<8){
-                    console.log(`\nin left down col`)
-                    console.log(`row = ${tempDownRow} col = ${leftDownCol}`)
-                    if(pieceName[tempDownRow*8 + leftDownCol].textContent!==""){
-    
-                        if(pieceName[tempDownRow*8 + leftDownCol].textContent[0]!==pieceColor){
-                            
-                            if(pieceName[tempDownRow*8 + leftDownCol].textContent[1]==="Q" || pieceName[tempDownRow*8 + leftDownCol].textContent[1]==="B" || pieceName[tempDownRow*8 + leftDownCol].textContent[1]==="P"){
-                                console.log("3 se ho raha return false");
-                                return false;
-                            }
-    
-                        }
-                        else{
-                            console.log("break kar diya")
-                            break;
-                        }
-    
-                    }
-                    leftDownCol--;
-                    tempDownRow++;
-                }
-                
-                tempDownRow = downRow;
-                while(rightDownCol<8 && tempDownRow<8){
-                    console.log(`\nin right down col`);
-                    console.log(`rightDownCol = ${rightDownCol} tempDownRow = ${tempDownRow}`)
-                    if(pieceName[tempDownRow*8 + rightDownCol].textContent!==""){
-    
-                        if(pieceName[tempDownRow*8 + rightDownCol].textContent[0]!==pieceColor){
-                            
-                            if(pieceName[tempDownRow*8 + rightDownCol].textContent[1]==="Q" || pieceName[tempDownRow*8 + rightDownCol].textContent[1]==="B" || pieceName[tempDownRow*8 + rightDownCol].textContent[1]==="P"){
-                                console.log("4 se ho raha return false");
-                                return false;
-                            }
-    
-                        }
-                        else{
-                            break;  
-                        }
-    
-                    }
-                    rightDownCol++;
-                    tempDownRow++;
-                }
-    
-            }
-    
-            if(upRow>-1){
-    
-                let tempUpRow = upRow;
-                while(leftUpCol>-1 && tempUpRow>-1){
-                    console.log("\nin block 5");
-                    console.log(`row = ${tempUpRow} col = ${leftUpCol}`)
-    
-                    if(pieceName[tempUpRow*8 + leftUpCol].textContent!==""){
-                        console.log("pehli condition")
-    
-                        if(pieceName[tempUpRow*8 + leftUpCol].textContent[0]!==pieceColor){
-                            console.log("dusri condition")
-    
-                            if(pieceName[tempUpRow*8 + leftUpCol].textContent[1]==="Q" || pieceName[tempUpRow*8 + leftUpCol].textContent[1]==="B" || pieceName[tempUpRow*8 + leftUpCol].textContent[1]==="P"){
-                                console.log("5 se ho raha return false");
-                                return false;
-                            }
-    
-                        }
-                        else{
-                            break;
-                        }
-    
-                    }
-    
-                    tempUpRow--;
-                    leftUpCol--;
-    
-                }
-    
-                tempUpRow = upRow-1;
-                while(tempUpRow>-1 && rightUpCol<8){
-    
-                    if(pieceName[tempUpRow*8 + rightUpCol].textContent!==""){
-    
-                        if(pieceName[tempUpRow*8 + rightUpCol].textContent[0]!==pieceColor){
-    
-                            if(pieceName[tempUpRow*8 + rightUpCol].textContent[1]==="Q" || pieceName[tempUpRow*8 + rightUpCol].textContent[1]==="B" || pieceName[tempUpRow*8 + rightUpCol].textContent[1]==="P"){
-                                console.log("6 se ho raha return false");
-                                return false;
-                            }
-    
-                        }
-                        else{
-                            break;
-                        }
-    
-                    }
-    
-                    tempUpRow--;
-                    rightUpCol++;
-    
-                }
-    
-            }
-        }
-
-
-        //column check
-        {
-            let tempRightCol = col;
-            if(tempRightCol<8){
-    
-                if(pieceName[row*8 + tempRightCol].textContent!==""){
-                    
-                    if(pieceName[row*8 + tempRightCol].textContent[0]!==pieceColor){
-    
-                        if(pieceName[row*8 + tempRightCol].textContent[1]==="R" || pieceName[row*8 + tempRightCol].textContent[1]==="Q" || pieceName[row*8 + tempRightCol].textContent[1]==="K"){
-                            console.log("7 se ho raha return false");
-                            return false;
-                        }
-    
-                    }
-                
-                }
-                tempRightCol++;
-            }
-    
-            let tempLeftCol = col;
-            if(tempLeftCol>-1){
-    
-                if(pieceName[row*8 + tempLeftCol].textContent!==""){
-                    
-                    if(pieceName[row*8 + tempLeftCol].textContent[0]!==pieceColor){
-    
-                        if(pieceName[row*8 + tempLeftCol].textContent[1]==="R" || pieceName[row*8 + tempLeftCol].textContent[1]==="Q" || pieceName[row*8 + tempLeftCol].textContent[1]==="K"){
-                            console.log("8 se ho raha return false");
-                            return false;
-                        }
-    
-                    }
-                
-                }
-                tempLeftCol--;
-            }
-        }
-
-
-        //knight check
-        {
-
-            let tempUpRow = row;
-            
-            if(tempUpRow-1>-1){
-                
-                if(col-2>-1){
-                    if(pieceName[(tempUpRow-1)*8 + col-2].textContent!==""){
-                        if(pieceName[(tempUpRow-1)*8 + col-2].textContent[0]!==pieceColor && pieceName[(tempUpRow-1)*8 + col-2].textContent[1]==="N"){
-                            console.log("9 se ho raha return false");
-                            return false;
-                        }
-                    }
-                }
-
-                if(col+2<8){
-                    if(pieceName[(tempUpRow-1)*8 + col+2].textContent!==""){
-                        if(pieceName[(tempUpRow-1)*8 + col+2].textContent[0]!==pieceColor && pieceName[(tempUpRow-1)*8 + col+2].textContent[1]==="N"){
-                            console.log("10 se ho raha return false");
-                            return false;
-                        }
-                    }
-                }
-                
-                
-            }
-
-            if(tempUpRow-2>-1){
-
-                if(col-1>-1){
-
-                    if(pieceName[(tempUpRow-2)*8 + col-1].textContent!==""){
-                        if(pieceName[(tempUpRow-2)*8 + col-1].textContent[0]!==pieceColor && pieceName[(tempUpRow-2)*8 + col-1].textContent[1]==="N"){
-                            console.log("11 se ho raha return false");
-                            return false;
-                        }
-                    }
-
-                }
-
-                if(col+1<8){
-
-                    if(pieceName[(tempUpRow-2)*8 + col+1].textContent!==""){
-                        if(pieceName[(tempUpRow-2)*8 + col+1].textContent[0]!==pieceColor && pieceName[(tempUpRow-2)*8 + col+1].textContent[1]==="N"){
-                            console.log("12 se ho raha return false");
-                            return false;
-                        }
-                    }
-
-                }
-
-            }
-            
-            let tempDownRow = row;
-            if(tempDownRow+1<8){
-
-                if(col-2>-1){
-                    if(pieceName[(tempDownRow+1)*8 + col-2].textContent!==""){
-                        if(pieceName[(tempDownRow+1)*8 + col-2].textContent[0]!==pieceColor && pieceName[(tempDownRow+1)*8 + col-2].textContent[1]==="N"){
-                            console.log("13 se ho raha return false");
-                            return false;
-                        }
-                    }
-                }
-
-                if(col+2<8){
-                    if(pieceName[(tempDownRow+1)*8 + col+2].textContent!==""){
-                        if(pieceName[(tempDownRow+1)*8 + col+2].textContent[0]!==pieceColor && pieceName[(tempDownRow+1)*8 + col+2].textContent[1]==="N"){
-                            console.log("14 se ho raha return false");
-                            return false;
-                        }
-                    }
-                }
-
-            }
-
-            if(tempDownRow+2<8){
-
-                if(col-1>-1){
-
-                    if(pieceName[(tempDownRow+2)*8 + col-1].textContent!==""){
-                        if(pieceName[(tempDownRow+2)*8 + col-1].textContent[0]!==pieceColor && pieceName[(tempDownRow+2)*8 + col-1].textContent[1]==="N"){
-                            console.log("15 se ho raha return false");
-                            return false;
-                        }
-                    }
-
-                }
-
-                if(col+1<8){
-
-                    if(pieceName[(tempDownRow+2)*8 + col+1].textContent!==""){
-                        if(pieceName[(tempDownRow+2)*8 + col+1].textContent[0]!==pieceColor && pieceName[(tempDownRow+2)*8 + col+1].textContent[1]==="N"){
-                            console.log("16 se ho raha return false");
-                            return false;
-                        }
-                    }
-
-                }
-            }
-        }
-    }
     console.log("bahar se true return kara diya")
     return true;
 
@@ -1027,6 +1749,7 @@ gameSquares.forEach((value, index) => {
     gameSquares[index].addEventListener("click", () => {
         let column = index % 8;
         let row = Math.floor(index / 8);
+
         if (buttonClicked.length < 1 && pieceName[index].textContent!=="") {
             buttonClicked.push([pieceName[index].textContent, row, column]);
             console.log(buttonClicked);
@@ -1034,13 +1757,26 @@ gameSquares.forEach((value, index) => {
 
             // knight
             if(buttonClicked[0][0][1]==="N"){
-                knightMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+                if(!turn && buttonClicked[0][0][0]==="B"){
+                    knightMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+                }
+                if(turn && buttonClicked[0][0][0]==="W"){
+                    knightMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+
+                }
             }
 
             //bishops
             else if(buttonClicked[0][0][1]==="B"){
 
-                bishopMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+                if(!turn && buttonClicked[0][0][0]==="B"){
+
+                    bishopMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+                }
+                if(turn && buttonClicked[0][0][0]==="W"){
+                    bishopMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2])
+
+                }
                 
             }
 
@@ -1048,8 +1784,12 @@ gameSquares.forEach((value, index) => {
             else if(buttonClicked[0][0][1]==="P"){
                 
                 console.log("pawn aaya hai");
-
-                pawnMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                if(!turn && buttonClicked[0][0][0]==="B"){
+                    pawnMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                }
+                if(turn && buttonClicked[0][0][0]==="W"){
+                    pawnMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                }
 
             }
 
@@ -1057,8 +1797,12 @@ gameSquares.forEach((value, index) => {
             else if(buttonClicked[0][0][1]==="K"){
 
                 console.log("king aaya hai full power");
-
-                kingMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                if(!turn && buttonClicked[0][0][0]==="B"){
+                    kingMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                }
+                if(turn && buttonClicked[0][0][0]==="W"){
+                    kingMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                }
 
             }
 
@@ -1066,8 +1810,14 @@ gameSquares.forEach((value, index) => {
             else if(buttonClicked[0][0][1]==="R"){
 
                 console.log("rook aaya hai");
+                if(!turn && buttonClicked[0][0][0]==="B"){
 
-                rookMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                    rookMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                }
+                if(turn && buttonClicked[0][0][0]==="W"){
+                    rookMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+
+                }
 
             }
 
@@ -1075,9 +1825,14 @@ gameSquares.forEach((value, index) => {
             else if(buttonClicked[0][0][1]=="Q"){
 
                 console.log("queen aaya hai");
+                if(!turn && buttonClicked[0][0][0]==="B"){
 
-                queenMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                    queenMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
+                }
+                if(turn && buttonClicked[0][0][0]==="W"){
+                    queenMovement(buttonClicked[0][0][0],buttonClicked[0][1],buttonClicked[0][2]);
 
+                }
             }
 
         } 
